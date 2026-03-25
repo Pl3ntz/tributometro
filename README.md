@@ -180,10 +180,10 @@ Cada cálculo do TributôMetro referencia legislação real. Todas as fontes:
 | INSS patronal (20%) | CLT | Lei 8.212/91, art. 22, I | - |
 | FGTS (8%) | CLT | Lei 8.036/90, art. 15 | - |
 | RAT/SAT (1-3%) | CLT | Lei 8.212/91, art. 22, II | - |
-| Salário Educação (2,5%) | CF/88 | CF/88, art. 212, par. 5 | - |
+| Salário-Educação (2,5%) | CF/88 | CF/88, art. 212, §5º | - |
 | Sistema S (SENAI, SESI, SEBRAE, INCRA) | Decretos-Lei | DL 4.048/42, DL 9.403/46, Lei 8.029/90, DL 1.146/70 | - |
-| 13o salário | CLT | Lei 4.090/62 | - |
-| Férias + 1/3 | CLT | CF/88, art. 7, XVII; CLT art. 129-145 | - |
+| 13º salário | CLT | Lei 4.090/62 | - |
+| Férias + 1/3 | CLT | CF/88, art. 7º, XVII; CLT art. 129-145 | - |
 | Simples Nacional | LC | LC 123/2006 + LC 155/2016 | - |
 | ISS | LC | LC 116/2003 + LC 157/2016 | - |
 | PIS/COFINS cumulativo | Federal | Lei 9.718/98 | - |
@@ -206,7 +206,7 @@ Todas as premissas são explícitas e configuráveis onde possível:
 - **Impostos sobre consumo: estimativas IBPT**. São médias por categoria de produto. Variam por NCM, estado e regime tributário do vendedor
 - **Perfil de gastos: POF/IBGE 2017-2018**. Distribuição percentual por categoria de consumo da família brasileira média
 - **Faturamento PJ: estimado em 1,4x o salário desejado**. Premissa de margem para custos operacionais no comparativo CLT vs PJ
-- **Pró-labore PJ: 40% do faturamento ou salário mínimo** (o maior dos dois)
+- **Pró-labore PJ: 40% do faturamento ou salário mínimo** (o que for maior)
 - **Distribuição de lucros PJ: isenta de IR** (Lei 9.249/95, art. 10)
 - **INSS PJ: 11% sobre pró-labore**, limitado ao teto (Lei 8.212/91, art. 21)
 - **Cálculo de imposto no consumo: "por dentro"**. Fórmula: `imposto = valor × alíquota / (1 + alíquota)`, pois tributos brasileiros estão embutidos no preço

@@ -8,6 +8,16 @@ from app.services.transaction_service import create_transaction_with_taxes
 
 router = APIRouter()
 
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+
+
+async def _read_file_limited(file: UploadFile, max_size: int = MAX_FILE_SIZE) -> bytes:
+    """Read uploaded file with size limit to prevent DoS."""
+    content = await file.read(max_size + 1)
+    if len(content) > max_size:
+        raise HTTPException(status_code=413, detail="Arquivo excede o limite de 10MB.")
+    return content
+
 
 @router.post("/ofx", response_model=list[TransactionOut])
 async def import_ofx(
@@ -15,7 +25,7 @@ async def import_ofx(
     db: AsyncSession = Depends(get_db),
 ):
     """Import transactions from OFX file."""
-    content = await file.read()
+    content = await _read_file_limited(file)
     try:
         ofx_transactions = parse_ofx(content)
     except OFXParseError as e:
@@ -46,7 +56,7 @@ async def import_csv(
     db: AsyncSession = Depends(get_db),
 ):
     """Import transactions from CSV file."""
-    content = (await file.read()).decode("utf-8-sig")
+    content = (await _read_file_limited(file)).decode("utf-8-sig")
     try:
         csv_transactions = parse_csv_transactions(content)
     except OFXParseError as e:

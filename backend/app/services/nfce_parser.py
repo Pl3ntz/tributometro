@@ -30,11 +30,38 @@ class NFCeData:
     raw_xml: str
 
 
+ALLOWED_SEFAZ_DOMAINS = {
+    "www.sefaz.rs.gov.br", "nfce.sefaz.rs.gov.br", "nfce.svrs.rs.gov.br",
+    "www.nfce.fazenda.sp.gov.br", "nfce.fazenda.sp.gov.br",
+    "sat.sef.sc.gov.br", "nfce.sef.sc.gov.br",
+    "www.nfe.fazenda.gov.br", "nfe.fazenda.gov.br",
+    "nfce.sefaz.mt.gov.br", "nfce.sefaz.ba.gov.br",
+    "nfce.sefaz.go.gov.br", "nfce.sefaz.am.gov.br",
+    "nfce.sefaz.ce.gov.br", "nfce.sefaz.pe.gov.br",
+    "nfce.sefaz.rj.gov.br", "nfce.fazenda.mg.gov.br",
+    "nfce.sefa.pr.gov.br", "nfce.sefaz.ma.gov.br",
+}
+
+
+def _validate_nfce_url(url: str) -> None:
+    """Validate URL against allowlist of SEFAZ domains to prevent SSRF."""
+    import urllib.parse
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        raise NFCeParseError("URL deve usar HTTP ou HTTPS.")
+    if parsed.hostname not in ALLOWED_SEFAZ_DOMAINS:
+        raise NFCeParseError(
+            f"Domínio '{parsed.hostname}' não é uma SEFAZ reconhecida. "
+            "Apenas URLs oficiais da SEFAZ são aceitas."
+        )
+
+
 async def parse_nfce_url(qr_url: str) -> NFCeData:
     """Fetch NFCe from SEFAZ URL and parse XML."""
+    _validate_nfce_url(qr_url)
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
-            response = await client.get(qr_url, follow_redirects=True)
+            response = await client.get(qr_url, follow_redirects=False)
 
             if response.status_code != 200:
                 raise NFCeParseError(

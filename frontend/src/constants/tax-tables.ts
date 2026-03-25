@@ -42,7 +42,7 @@ export const ENCARGOS_PATRONAIS = {
   inssPatronal: { rate: 0.20, lei: 'Lei 8.212/91, art. 22, I' },
   fgts: { rate: 0.08, lei: 'Lei 8.036/90, art. 15' },
   rat: { rate: 0.02, lei: 'Lei 8.212/91, art. 22, II' },
-  salarioEducacao: { rate: 0.025, lei: 'CF/88, art. 212, §5º; Decreto 6.003/06' },
+  salarioEducacao: { rate: 0.025, lei: 'CF/88, art. 212, §5º; Decreto 6.003/2006' },
   senaiOuSenac: { rate: 0.01, lei: 'DL 4.048/42 (SENAI) / DL 8.621/46 (SENAC)' },
   sesiOuSesc: { rate: 0.015, lei: 'DL 9.403/46 (SESI) / DL 9.853/46 (SESC)' },
   sebrae: { rate: 0.006, lei: 'Lei 8.029/90, art. 8º, §3º' },
@@ -55,7 +55,7 @@ export const ENCARGOS_MENSAIS_TOTAL = 0.358
 // Provisões mensalizadas
 export const PROVISOES = {
   decimoTerceiro: { rate: 1 / 12, lei: 'Lei 4.090/62' },
-  feriasComTerco: { rate: (1 / 12) * (4 / 3), lei: 'CF/88, art. 7º, XVII; CLT art. 129-145' },
+  feriasComTerco: { rate: (1 / 12) * (4 / 3), lei: 'CF/88, art. 7º, XVII; CLT arts. 129-145' },
   fgtsProvisoes: { rate: 0.0156, lei: 'Lei 8.036/90' },
   inssProvisoes: { rate: 0.0389, lei: 'Lei 8.212/91' },
 } as const

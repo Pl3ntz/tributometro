@@ -41,7 +41,7 @@ EMPLOYER_CHARGES = [
     {"name": "INSS Patronal", "rate": 0.20, "source": "CLT art. 22, Lei 8.212/91"},
     {"name": "FGTS", "rate": 0.08, "source": "Lei 8.036/90, art. 15"},
     {"name": "RAT/SAT (risco médio)", "rate": 0.02, "source": "Lei 8.212/91, art. 22, II"},
-    {"name": "Salário Educação", "rate": 0.025, "source": "Lei 9.424/96"},
+    {"name": "Salário-Educação", "rate": 0.025, "source": "Lei 9.424/96"},
     {"name": "SENAI/SENAC", "rate": 0.01, "source": "Decreto-Lei 4.048/42"},
     {"name": "SESI/SESC", "rate": 0.015, "source": "Decreto-Lei 9.853/46"},
     {"name": "SEBRAE", "rate": 0.006, "source": "Lei 8.029/90"},
@@ -50,10 +50,10 @@ EMPLOYER_CHARGES = [
 EMPLOYER_MONTHLY_RATE = Decimal("0.358")
 
 # Provisões obrigatórias (mensalizadas)
-# Fonte: CLT art. 7, VIII e XVII + cálculo contábil padrão
+# Fonte: CLT art. 7º, VIII e XVII + cálculo contábil padrão
 EMPLOYER_PROVISIONS = [
     {"name": "13º salário (1/12)", "rate": 0.0833, "source": "CLT, Lei 4.090/62"},
-    {"name": "Férias + 1/3 (1/12 × 4/3)", "rate": 0.1111, "source": "CLT art. 129-145, CF art. 7 XVII"},
+    {"name": "Férias + 1/3 (1/12 × 4/3)", "rate": 0.1111, "source": "CLT art. 129-145, CF art. 7º, XVII"},
     {"name": "FGTS sobre 13º e férias", "rate": 0.0156, "source": "Lei 8.036/90"},
     {"name": "INSS sobre 13º e férias", "rate": 0.0389, "source": "Lei 8.212/91"},
 ]
@@ -240,7 +240,7 @@ def calculate_salary_breakdown(
     # ── Premissas explícitas ──
     assumptions = [
         {"key": "rat", "label": f"RAT/SAT: {rat_rate*100:.0f}%", "detail": "1%=leve, 2%=médio, 3%=grave. Depende do CNAE da empresa (Decreto 3.048/99, Anexo V).", "law": "Lei 8.212/91, art. 22, II"},
-        {"key": "iss", "label": f"ISS: {iss_rate*100:.0f}%", "detail": f"Varia de 2% a 5% conforme município e atividade. Usando {iss_rate*100:.0f}%.", "law": "LC 116/2003 + LC 157/2016"},
+        {"key": "iss", "label": f"ISS: {iss_rate*100:.0f}%", "detail": f"Varia de 2% a 5% conforme o município e a atividade. Usando {iss_rate*100:.0f}%.", "law": "LC 116/2003 + LC 157/2016"},
         {"key": "regime", "label": f"Regime: {regime.replace('_', ' ').title()}", "detail": "Impostos sobre receita variam conforme regime tributário da empresa.", "law": "Lei 9.718/98"},
         {"key": "multa_fgts", "label": "Sem provisão de multa rescisória", "detail": "A multa de 40% do FGTS incide apenas na demissão sem justa causa. Não é custo mensal fixo.", "law": "Lei 8.036/90, art. 18"},
         {"key": "sistema_s", "label": "Sistema S: Indústria (SENAI/SESI)", "detail": "Para comércio, substitui-se por SENAC/SESC (mesmas alíquotas).", "law": "CF/88, art. 240"},
@@ -262,7 +262,7 @@ def calculate_salary_breakdown(
         {"name": "INSS Patronal", "rate": 0.20, "value": _round(inss_patronal), "source": "Lei 8.212/91, art. 22, I"},
         {"name": "FGTS", "rate": 0.08, "value": _round(fgts), "source": "Lei 8.036/90, art. 15"},
         {"name": f"RAT/SAT ({rat_rate*100:.0f}%)", "rate": float(rat), "value": _round(rat_val), "source": "Lei 8.212/91, art. 22, II"},
-        {"name": "Salário Educação", "rate": 0.025, "value": _round(sal_educacao), "source": "CF/88, art. 212, §5º"},
+        {"name": "Salário-Educação", "rate": 0.025, "value": _round(sal_educacao), "source": "CF/88, art. 212, §5º"},
         {"name": "SENAI/SENAC", "rate": 0.01, "value": _round(senai_senac), "source": "DL 4.048/42"},
         {"name": "SESI/SESC", "rate": 0.015, "value": _round(sesi_sesc), "source": "DL 9.403/46"},
         {"name": "SEBRAE", "rate": 0.006, "value": _round(sebrae), "source": "Lei 8.029/90"},
@@ -288,7 +288,7 @@ def calculate_salary_breakdown(
         {"name": f"FGTS s/ 13º e férias (8%)", "rate": 0.08, "value": _round(base_provisoes * Decimal("0.08")), "source": "Lei 8.036/90", "formula": f"({_round(decimo_terceiro)} + {_round(ferias_com_terco)}) × 8%"},
         {"name": f"INSS patronal s/ 13º e férias (20%)", "rate": 0.20, "value": _round(base_provisoes * Decimal("0.20")), "source": "Lei 8.212/91", "formula": f"({_round(decimo_terceiro)} + {_round(ferias_com_terco)}) × 20%"},
         {"name": f"RAT s/ 13º e férias ({rat_rate*100:.0f}%)", "rate": float(rat), "value": _round(base_provisoes * rat), "source": "Lei 8.212/91, art. 22, II", "formula": f"({_round(decimo_terceiro)} + {_round(ferias_com_terco)}) × {rat_rate*100:.0f}%"},
-        {"name": "Sal.Educ+SistemaS s/ 13º e férias (5,8%)", "rate": 0.058, "value": _round(base_provisoes * Decimal("0.058")), "source": "CF/88 art. 212 §5º + DLs Sistema S", "formula": f"({_round(decimo_terceiro)} + {_round(ferias_com_terco)}) × 5,8%"},
+        {"name": "Sal.-Educ.+Sistema S s/ 13º e férias (5,8%)", "rate": 0.058, "value": _round(base_provisoes * Decimal("0.058")), "source": "CF/88 art. 212, §5º + DLs Sistema S", "formula": f"({_round(decimo_terceiro)} + {_round(ferias_com_terco)}) × 5,8%"},
     ]
 
     employer_cost = gross + charges_total + provisions_total

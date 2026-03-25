@@ -41,14 +41,14 @@ const MEI_DAS_SERVICOS = MEI.dasServicos
 const MEI_INSS = 75.90
 
 const SALARY_SHORTCUTS = [
-  { value: 1518, label: 'Sal. Minimo', desc: 'Piso nacional 2026' },
+  { value: 1518, label: 'Sal. Mínimo', desc: 'Piso nacional 2026' },
   { value: 2200, label: 'Operacional', desc: 'Auxiliar, atendente' },
-  { value: 3500, label: 'Tecnico', desc: 'Tecnico, assistente' },
-  { value: 5000, label: 'Classe media', desc: 'Analista, professor' },
+  { value: 3500, label: 'Técnico', desc: 'Técnico, assistente' },
+  { value: 5000, label: 'Classe média', desc: 'Analista, professor' },
   { value: 8000, label: 'Especialista', desc: 'Engenheiro, advogado' },
-  { value: 15000, label: 'Gerencia', desc: 'Gerente, coordenador' },
+  { value: 15000, label: 'Gerência', desc: 'Gerente, coordenador' },
   { value: 25000, label: 'Diretoria', desc: 'Diretor, C-level' },
-  { value: 50000, label: 'Executivo', desc: 'CEO, socio' },
+  { value: 50000, label: 'Executivo', desc: 'CEO, sócio' },
 ] as const
 
 type Regime = 'clt' | 'simples' | 'presumido' | 'mei'
@@ -172,8 +172,8 @@ function calcSimples(salarioBrutoDesejado: number): RegimeResult {
 
   const impostos: TaxItem[] = [
     { label: `DAS Simples (${pct(aliquotaEfetiva * 100)} efetivo)`, value: das, law: 'LC 123/2006 + LC 155/2016' },
-    { label: `INSS Pro-labore (11%)`, value: inssPJ, law: 'Lei 8.212/91, art. 21' },
-    { label: 'IRPF sobre pro-labore', value: irpfProLabore, law: 'Lei 15.270/2025' },
+    { label: `INSS Pró-labore (11%)`, value: inssPJ, law: 'Lei 8.212/91, art. 21' },
+    { label: 'IRPF sobre pró-labore', value: irpfProLabore, law: 'Lei 15.270/2025' },
   ]
 
   const totalImpostos = das + inssPJ + irpfProLabore
@@ -213,8 +213,8 @@ function calcPresumido(salarioBrutoDesejado: number): RegimeResult {
     { label: 'IRPJ (15% x 32%)', value: irpj, law: 'RIR/2018, art. 591' },
     { label: 'CSLL (9% x 32%)', value: csll, law: 'Lei 7.689/88' },
     { label: 'ISS (5%)', value: iss, law: 'LC 116/2003' },
-    { label: 'INSS Pro-labore (11%)', value: inssPJ, law: 'Lei 8.212/91, art. 21' },
-    { label: 'IRPF sobre pro-labore', value: irpfProLabore, law: 'Lei 15.270/2025' },
+    { label: 'INSS Pró-labore (11%)', value: inssPJ, law: 'Lei 8.212/91, art. 21' },
+    { label: 'IRPF sobre pró-labore', value: irpfProLabore, law: 'Lei 15.270/2025' },
   ]
 
   const totalImpostos = totalTributosPJ + inssPJ + irpfProLabore
@@ -240,7 +240,7 @@ function calcMEI(salarioBrutoDesejado: number): RegimeResult {
       liquido: 0,
       pctImpostos: 0,
       viable: false,
-      warning: `Valor excede o teto MEI de ${fmt(MEI_TETO_MENSAL)}/mes (R$ 81.000/ano)`,
+      warning: `Valor excede o teto MEI de ${fmt(MEI_TETO_MENSAL)}/mês (R$ 81.000/ano)`,
     }
   }
 
@@ -249,8 +249,8 @@ function calcMEI(salarioBrutoDesejado: number): RegimeResult {
   const liquido = faturamentoMensal - das
 
   const impostos: TaxItem[] = [
-    { label: `DAS MEI fixo (INSS 5% min.)`, value: MEI_INSS, law: 'LC 123/2006, art. 18-A' },
-    { label: 'ISS fixo', value: das - MEI_INSS, law: 'LC 123/2006, art. 18-A, par. 3' },
+    { label: `DAS MEI fixo (INSS 5% mín.)`, value: MEI_INSS, law: 'LC 123/2006, art. 18-A' },
+    { label: 'ISS fixo', value: das - MEI_INSS, law: 'LC 123/2006, art. 18-A, §3º' },
   ]
 
   return {
@@ -355,7 +355,7 @@ export default function Comparativo() {
         transition={{ delay: 0.1 }}
       >
         <label className="text-xs text-txt-tertiary uppercase tracking-wider block mb-3" htmlFor="comp-salary-input">
-          Quanto voce quer ganhar (bruto mensal)
+          Quanto você quer ganhar (bruto mensal)
         </label>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
@@ -466,7 +466,7 @@ export default function Comparativo() {
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-txt-secondary font-medium">{meta.label}</span>
                         <span className="font-mono text-txt-tertiary">
-                          {fmt(result.liquido)} liquido ({pct(result.pctImpostos)} impostos)
+                          {fmt(result.liquido)} líquido ({pct(result.pctImpostos)} impostos)
                         </span>
                       </div>
                       <div className="flex h-6 rounded-lg overflow-hidden" style={{ backgroundColor: '#111113' }}>
@@ -491,7 +491,7 @@ export default function Comparativo() {
                       <div className="flex items-center gap-3 text-[10px]">
                         <span className="flex items-center gap-1">
                           <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: isBest ? '#48BB78' : meta.color }} />
-                          <span className="text-txt-tertiary">Liquido</span>
+                          <span className="text-txt-tertiary">Líquido</span>
                         </span>
                         <span className="flex items-center gap-1">
                           <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: '#E5A216', opacity: 0.6 }} />
@@ -516,7 +516,7 @@ export default function Comparativo() {
                 <p>• Faturamento PJ estimado em 1,4× o salário desejado (premissa de margem para custos operacionais)</p>
                 <p>• RAT/SAT: 2% (risco médio) — varia de 1% a 3% conforme CNAE (Lei 8.212/91, art. 22, II)</p>
                 <p>• ISS: 5% (alíquota máxima) — varia de 2% a 5% conforme município (LC 116/2003)</p>
-                <p>• Pró-labore PJ: 40% do faturamento ou salário mínimo (o maior)</p>
+                <p>• Pró-labore PJ: 40% do faturamento ou salário mínimo (o que for maior)</p>
                 <p>• Distribuição de lucros PJ: isenta de IR (Lei 9.249/95, art. 10)</p>
                 <p>• CLT: sem provisão de multa rescisória (incide apenas em demissão sem justa causa)</p>
               </div>
@@ -588,7 +588,7 @@ function RegimeCard({ result, isBest, delay }: { result: RegimeResult; isBest: b
 
       {/* Liquido */}
       <div className="mb-3">
-        <p className="text-[10px] text-txt-tertiary uppercase tracking-wider">Valor liquido</p>
+        <p className="text-[10px] text-txt-tertiary uppercase tracking-wider">Valor líquido</p>
         <p className={`text-xl font-bold font-mono ${isBest ? 'text-success' : 'text-txt-primary'}`}>
           {fmt(result.liquido)}
         </p>

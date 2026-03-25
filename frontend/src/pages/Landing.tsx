@@ -275,11 +275,11 @@ const FEATURE_CARDS = [
 
 const STAT_CARDS = [
   { value: 'R$ 3,98 tri', label: 'arrecadados em impostos em 2025', source: 'Impostômetro / ACSP' },
-  { value: '153 dias', label: 'projeção de dias trabalhados p/ impostos em 2026', source: 'IBPT (c/ aumento IOF, Lei 14.973/2024)' },
+  { value: '153 dias', label: 'projeção de dias trabalhados para impostos em 2026', source: 'IBPT (com aumento IOF, Lei 14.973/2024)' },
   { value: '40,82%', label: 'da renda foi para tributos em 2025', source: 'IBPT — Estudo Dias Trabalhados 2025' },
   { value: '83 dias', label: 'foram só para impostos sobre consumo em 2025', source: 'IBPT — Estudo Dias Trabalhados 2025' },
   { value: '30º de 30', label: 'pior retorno de impostos à sociedade em 2025', source: 'IBPT/IRBES 14ª edição, maio 2025' },
-  { value: 'Lei 12.741/2012', label: 'obriga informar impostos na nota fiscal', source: 'planalto.gov.br — em vigor desde 10/06/2013' },
+  { value: 'Lei 12.741/2012', label: 'obriga a informar impostos na nota fiscal', source: 'planalto.gov.br — em vigor desde 10/06/2013' },
 ] as const
 
 // ─── Main component ────────────────────────────────────────────────────────

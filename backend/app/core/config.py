@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     redis_url: str = "redis://redis:6379"
     groq_api_key: str = ""
     ibpt_default_uf: str = "SC"
+    environment: str = "production"
 
     model_config = {"env_file": ".env", "extra": "ignore"}
 

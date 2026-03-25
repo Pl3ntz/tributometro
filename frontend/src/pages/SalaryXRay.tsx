@@ -141,7 +141,7 @@ export default function SalaryXRay() {
                   <p className="text-txt-secondary text-sm mt-1">do dinheiro é consumido por impostos em todas as camadas</p>
                 </div>
                 <div className="flex gap-4">
-                  <StatBadge icon={<Calendar size={14} />} value={`${data.summary.days_worked_for_tax} dias`} label="trabalhados p/ impostos" />
+                  <StatBadge icon={<Calendar size={14} />} value={`${data.summary.days_worked_for_tax} dias`} label="trabalhados para impostos" />
                   <StatBadge icon={<Clock size={14} />} value={`${data.summary.hours_worked_for_tax}h`} label="por mês" />
                 </div>
               </div>
@@ -160,7 +160,7 @@ export default function SalaryXRay() {
               >
                 <WaterfallItem label="Impostos sobre receita (PIS, COFINS, IRPJ, CSLL, ISS)" value={data.company.taxes_on_revenue} type="tax" />
                 <WaterfallItem label="Encargos patronais (INSS 20%, FGTS 8%, RAT, Sistema S)" value={data.company.charges} type="tax" />
-                <WaterfallItem label="Provisões (13º, férias, multa FGTS)" value={data.company.provisions} type="tax" />
+                <WaterfallItem label="Provisões (13º, férias, FGTS sobre provisões)" value={data.company.provisions} type="tax" />
               </WaterfallLayer>
 
               <FlowArrow />
@@ -174,7 +174,7 @@ export default function SalaryXRay() {
                 delay={0.25}
               >
                 <WaterfallItem label={`INSS empregado (${pct(data.employee.inss_rate)} efetivo)`} value={data.employee.inss} type="tax" />
-                <WaterfallItem label={`IRPF (${pct(data.employee.irpf_rate)} efetivo)${data.employee.irpf === 0 ? ' — Isento em 2026 até R$5k' : ''}`} value={data.employee.irpf} type={data.employee.irpf === 0 ? 'exempt' : 'tax'} />
+                <WaterfallItem label={`IRPF (${pct(data.employee.irpf_rate)} efetivo)${data.employee.irpf === 0 ? ' — Isento em 2026 até R$ 5.000' : ''}`} value={data.employee.irpf} type={data.employee.irpf === 0 ? 'exempt' : 'tax'} />
               </WaterfallLayer>
 
               <FlowArrow />
@@ -244,7 +244,7 @@ export default function SalaryXRay() {
             >
               <h3 className="text-sm font-medium text-txt-primary mb-4">De cada R$ 100 que a empresa gasta com você</h3>
               <div className="space-y-3">
-                <BarRow label="Impostos s/ receita" value={data.company.taxes_on_revenue} total={data.company.revenue_needed} color="bg-surface-4" />
+                <BarRow label="Impostos sobre receita" value={data.company.taxes_on_revenue} total={data.company.revenue_needed} color="bg-surface-4" />
                 <BarRow label="Encargos + provisões" value={data.company.charges + data.company.provisions} total={data.company.revenue_needed} color="bg-accent-600" />
                 <BarRow label="INSS + IRPF" value={data.employee.inss + data.employee.irpf} total={data.company.revenue_needed} color="bg-accent-400" />
                 <BarRow label="Impostos no consumo" value={data.consumption.total_tax} total={data.company.revenue_needed} color="bg-alert-600" />
