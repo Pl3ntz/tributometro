@@ -1,75 +1,100 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
-  Fuel, Beer, Smartphone, Wheat, Car, Zap, Cigarette, Pill,
-  Footprints, Phone, CupSoda, Croissant, Droplets, Beef, Egg,
+  Wheat, Beef, Egg, Droplets, Croissant, CupSoda, Beer,
   Plus, Minus, ShoppingCart, AlertTriangle, ChevronDown,
-  Sparkles, SprayCan, Shirt,
+  Sparkles, SprayCan, Apple, Milk, Cookie,
 } from 'lucide-react'
 import SEO from '../components/SEO'
 
-const ICONS: Record<string, typeof Fuel> = {
-  arroz: Wheat, feijao: Wheat, pao: Croissant, leite: Droplets,
-  carne: Beef, frango: Egg, oleo: Droplets, acucar: CupSoda,
-  cafe: CupSoda, macarrao: Wheat, cerveja: Beer, refrigerante: CupSoda,
-  agua: Droplets, gasolina: Fuel, onibus: Car, luz: Zap,
-  celular: Phone, internet: Phone, medicamento: Pill,
-  shampoo: Sparkles, sabonete: Sparkles, papel: SprayCan,
-  detergente: SprayCan, cigarro: Cigarette, tenis: Footprints,
-  camiseta: Shirt,
+const ICONS: Record<string, typeof Wheat> = {
+  arroz: Wheat, feijao: Wheat, macarrao: Wheat, farinha: Wheat,
+  carne: Beef, frango: Egg, ovos: Egg, linguica: Beef,
+  leite: Milk, queijo: Milk, manteiga: Milk, iogurte: Milk,
+  pao: Croissant, biscoito: Cookie, bolo: Cookie,
+  oleo: Droplets, acucar: CupSoda, cafe: CupSoda, sal: CupSoda,
+  tomate: Apple, cebola: Apple, batata: Apple, banana: Apple,
+  agua: Droplets, refrigerante: CupSoda, cerveja: Beer, suco: CupSoda,
+  shampoo: Sparkles, sabonete: Sparkles, pasta: Sparkles,
+  papel: SprayCan, detergente: SprayCan, sabaopó: SprayCan, desinfetante: SprayCan,
 }
 
+// Apenas produtos de SUPERMERCADO — o que se compra num mercado real
 const PRODUTOS = [
-  { id: 'arroz', name: 'Arroz 5kg', price: 26.50, tax: 0.12, category: 'alimentação', law: 'Lei SC 19.397/2025 (ICMS isento)' },
-  { id: 'feijao', name: 'Feijão 1kg', price: 8.10, tax: 0.12, category: 'alimentação', law: 'Lei SC 19.397/2025' },
-  { id: 'pao', name: 'Pão francês 1kg', price: 16.00, tax: 0.169, category: 'alimentação', law: 'IBPT — NCM 1905.90.90' },
-  { id: 'leite', name: 'Leite UHT 1L', price: 5.50, tax: 0.187, category: 'alimentação', law: 'IBPT — NCM 0401.20.10' },
-  { id: 'carne', name: 'Carne bovina 1kg', price: 42.00, tax: 0.186, category: 'alimentação', law: 'IBPT — NCM 0201.30.00' },
-  { id: 'frango', name: 'Frango 1kg', price: 15.00, tax: 0.16, category: 'alimentação', law: 'IBPT — NCM 0207.14.00' },
-  { id: 'oleo', name: 'Óleo de soja 900ml', price: 7.50, tax: 0.26, category: 'alimentação', law: 'IBPT — NCM 1507.90.11' },
-  { id: 'acucar', name: 'Açúcar 1kg', price: 5.00, tax: 0.323, category: 'alimentação', law: 'IBPT — NCM 1701.14.00' },
-  { id: 'cafe', name: 'Café 500g', price: 18.00, tax: 0.165, category: 'alimentação', law: 'IBPT — NCM 0901.21.00' },
-  { id: 'macarrao', name: 'Macarrão 500g', price: 4.50, tax: 0.175, category: 'alimentação', law: 'IBPT — NCM 1902.19.00' },
-  { id: 'cerveja', name: 'Cerveja lata 350ml', price: 4.00, tax: 0.425, category: 'bebidas', law: 'ICMS-ST 25% SC + IPI 6%' },
-  { id: 'refrigerante', name: 'Refrigerante lata', price: 3.50, tax: 0.46, category: 'bebidas', law: 'IBPT — NCM 2202.10.00' },
+  // Cereais e grãos
+  { id: 'arroz', name: 'Arroz 5kg', price: 26.50, tax: 0.12, category: 'cereais e grãos', law: 'Lei SC 19.397/2025 (ICMS isento)' },
+  { id: 'feijao', name: 'Feijão 1kg', price: 8.10, tax: 0.12, category: 'cereais e grãos', law: 'Lei SC 19.397/2025' },
+  { id: 'macarrao', name: 'Macarrão 500g', price: 4.50, tax: 0.175, category: 'cereais e grãos', law: 'IBPT — NCM 1902.19.00' },
+  { id: 'farinha', name: 'Farinha de trigo 1kg', price: 5.00, tax: 0.12, category: 'cereais e grãos', law: 'Lei SC 19.397/2025 (ICMS isento)' },
+  // Carnes e ovos
+  { id: 'carne', name: 'Carne bovina 1kg', price: 42.00, tax: 0.186, category: 'carnes e ovos', law: 'IBPT — NCM 0201.30.00' },
+  { id: 'frango', name: 'Frango 1kg', price: 15.00, tax: 0.16, category: 'carnes e ovos', law: 'IBPT — NCM 0207.14.00' },
+  { id: 'ovos', name: 'Ovos 12 unidades', price: 12.00, tax: 0.105, category: 'carnes e ovos', law: 'IBPT — NCM 0407.21.00 (isento ICMS SC)' },
+  { id: 'linguica', name: 'Linguiça 500g', price: 14.00, tax: 0.21, category: 'carnes e ovos', law: 'IBPT — NCM 1601.00.00' },
+  // Laticínios
+  { id: 'leite', name: 'Leite UHT 1L', price: 5.50, tax: 0.187, category: 'laticínios', law: 'IBPT — NCM 0401.20.10' },
+  { id: 'queijo', name: 'Queijo mussarela 500g', price: 25.00, tax: 0.213, category: 'laticínios', law: 'IBPT — NCM 0406.10.00' },
+  { id: 'manteiga', name: 'Manteiga 200g', price: 12.00, tax: 0.36, category: 'laticínios', law: 'IBPT — NCM 0405.10.00' },
+  { id: 'iogurte', name: 'Iogurte 170g', price: 3.50, tax: 0.33, category: 'laticínios', law: 'IBPT — NCM 0403.10.00' },
+  // Padaria
+  { id: 'pao', name: 'Pão francês 1kg', price: 16.00, tax: 0.169, category: 'padaria', law: 'IBPT — NCM 1905.90.90' },
+  { id: 'biscoito', name: 'Biscoito 200g', price: 5.00, tax: 0.263, category: 'padaria', law: 'IBPT — NCM 1905.31.00' },
+  { id: 'bolo', name: 'Bolo pronto', price: 15.00, tax: 0.263, category: 'padaria', law: 'IBPT — NCM 1905.90.90' },
+  // Básicos
+  { id: 'oleo', name: 'Óleo de soja 900ml', price: 7.50, tax: 0.26, category: 'básicos', law: 'IBPT — NCM 1507.90.11' },
+  { id: 'acucar', name: 'Açúcar 1kg', price: 5.00, tax: 0.323, category: 'básicos', law: 'IBPT — NCM 1701.14.00' },
+  { id: 'cafe', name: 'Café 500g', price: 18.00, tax: 0.165, category: 'básicos', law: 'IBPT — NCM 0901.21.00' },
+  { id: 'sal', name: 'Sal 1kg', price: 3.00, tax: 0.15, category: 'básicos', law: 'IBPT — NCM 2501.00.20' },
+  { id: 'tomate', name: 'Tomate 1kg', price: 8.00, tax: 0.0, category: 'básicos', law: 'Isento — hortifruti (RICMS-SC)' },
+  { id: 'cebola', name: 'Cebola 1kg', price: 6.00, tax: 0.0, category: 'básicos', law: 'Isento — hortifruti (RICMS-SC)' },
+  { id: 'batata', name: 'Batata 1kg', price: 5.50, tax: 0.0, category: 'básicos', law: 'Isento — hortifruti (RICMS-SC)' },
+  { id: 'banana', name: 'Banana 1kg', price: 5.00, tax: 0.035, category: 'básicos', law: 'IBPT — NCM 0803.90.00' },
+  // Bebidas
   { id: 'agua', name: 'Água mineral 1,5L', price: 3.00, tax: 0.315, category: 'bebidas', law: 'IBPT — NCM 2201.10.00' },
-  { id: 'gasolina', name: 'Gasolina 1 litro', price: 6.33, tax: 0.381, category: 'transporte', law: 'LC 192/2022 — ICMS R$1,57/L' },
-  { id: 'onibus', name: 'Passagem ônibus', price: 5.50, tax: 0.227, category: 'transporte', law: 'IBPT — impostos embutidos' },
-  { id: 'luz', name: 'Conta de luz', price: 250.00, tax: 0.356, category: 'moradia', law: 'ICMS 17% SC + PIS/COFINS + encargos' },
-  { id: 'celular', name: 'Plano celular', price: 50.00, tax: 0.293, category: 'telecom', law: 'ICMS 17% SC pós-STF + FUST' },
-  { id: 'internet', name: 'Internet banda larga', price: 100.00, tax: 0.293, category: 'telecom', law: 'ICMS 17% SC + PIS/COFINS' },
-  { id: 'medicamento', name: 'Medicamento genérico', price: 30.00, tax: 0.339, category: 'saúde', law: 'Lei 10.147/2000 (monofásico)' },
-  { id: 'shampoo', name: 'Shampoo', price: 15.00, tax: 0.365, category: 'higiene', law: 'IBPT — NCM 3305.10.00' },
-  { id: 'sabonete', name: 'Sabonete', price: 4.00, tax: 0.323, category: 'higiene', law: 'IBPT — NCM 3401.20.00' },
-  { id: 'papel', name: 'Papel higiênico 12un', price: 18.00, tax: 0.263, category: 'higiene', law: 'IBPT — NCM 4818.90.00' },
-  { id: 'detergente', name: 'Detergente 500ml', price: 3.50, tax: 0.338, category: 'limpeza', law: 'IBPT — NCM 3402.20.00' },
-  { id: 'cigarro', name: 'Cigarro maço', price: 10.00, tax: 0.833, category: 'outros', law: 'IPI + ICMS 25% + PIS/COFINS' },
-  { id: 'tenis', name: 'Tênis nacional', price: 250.00, tax: 0.44, category: 'vestuário', law: 'IBPT — NCM 6404.19.00' },
-  { id: 'camiseta', name: 'Camiseta algodão', price: 60.00, tax: 0.347, category: 'vestuário', law: 'IBPT — NCM 6109.10.00' },
+  { id: 'refrigerante', name: 'Refrigerante 2L', price: 8.00, tax: 0.46, category: 'bebidas', law: 'IBPT — NCM 2202.10.00' },
+  { id: 'cerveja', name: 'Cerveja lata 350ml', price: 4.00, tax: 0.425, category: 'bebidas', law: 'ICMS-ST 25% SC + IPI 6%' },
+  { id: 'suco', name: 'Suco de caixa 1L', price: 7.00, tax: 0.28, category: 'bebidas', law: 'IBPT — NCM 2009.19.00' },
+  // Higiene e limpeza
+  { id: 'shampoo', name: 'Shampoo 400ml', price: 15.00, tax: 0.365, category: 'higiene e limpeza', law: 'IBPT — NCM 3305.10.00' },
+  { id: 'sabonete', name: 'Sabonete 3un', price: 8.00, tax: 0.323, category: 'higiene e limpeza', law: 'IBPT — NCM 3401.20.00' },
+  { id: 'pasta', name: 'Pasta de dente', price: 7.00, tax: 0.322, category: 'higiene e limpeza', law: 'IBPT — NCM 3306.10.00' },
+  { id: 'papel', name: 'Papel higiênico 12un', price: 18.00, tax: 0.263, category: 'higiene e limpeza', law: 'IBPT — NCM 4818.90.00' },
+  { id: 'detergente', name: 'Detergente 500ml', price: 3.50, tax: 0.338, category: 'higiene e limpeza', law: 'IBPT — NCM 3402.20.00' },
+  { id: 'sabaopó', name: 'Sabão em pó 1kg', price: 12.00, tax: 0.313, category: 'higiene e limpeza', law: 'IBPT — NCM 3402.20.00' },
+  { id: 'desinfetante', name: 'Desinfetante 500ml', price: 6.00, tax: 0.36, category: 'higiene e limpeza', law: 'IBPT — NCM 3808.94.19' },
 ] as const
 
 const PERFIS: Record<string, Record<string, number>> = {
   minimo: {
-    arroz: 2, feijao: 2, pao: 4, leite: 8, carne: 2, frango: 2, oleo: 1, acucar: 2, cafe: 1, macarrao: 4,
-    agua: 4, gasolina: 0, onibus: 44, luz: 1, celular: 1, internet: 0, medicamento: 0,
-    shampoo: 1, sabonete: 2, papel: 1, detergente: 2, cigarro: 0, cerveja: 0, refrigerante: 0,
-    tenis: 0, camiseta: 0,
+    arroz: 2, feijao: 2, macarrao: 4, farinha: 1,
+    carne: 1, frango: 2, ovos: 2, linguica: 0,
+    leite: 6, queijo: 0, manteiga: 0, iogurte: 0,
+    pao: 4, biscoito: 0, bolo: 0,
+    oleo: 1, acucar: 2, cafe: 1, sal: 1, tomate: 2, cebola: 1, batata: 2, banana: 2,
+    agua: 0, refrigerante: 0, cerveja: 0, suco: 0,
+    shampoo: 1, sabonete: 1, pasta: 1, papel: 1, detergente: 1, sabaopó: 1, desinfetante: 0,
   },
   media: {
-    arroz: 2, feijao: 1, pao: 4, leite: 8, carne: 4, frango: 2, oleo: 1, acucar: 1, cafe: 1, macarrao: 2,
-    cerveja: 8, refrigerante: 4, agua: 8, gasolina: 40, onibus: 0, luz: 1, celular: 1, internet: 1,
-    medicamento: 1, shampoo: 1, sabonete: 2, papel: 1, detergente: 2, cigarro: 0,
-    tenis: 0, camiseta: 0,
+    arroz: 2, feijao: 1, macarrao: 2, farinha: 1,
+    carne: 3, frango: 2, ovos: 2, linguica: 1,
+    leite: 8, queijo: 1, manteiga: 1, iogurte: 4,
+    pao: 4, biscoito: 2, bolo: 1,
+    oleo: 1, acucar: 1, cafe: 1, sal: 1, tomate: 2, cebola: 1, batata: 2, banana: 2,
+    agua: 4, refrigerante: 1, cerveja: 6, suco: 2,
+    shampoo: 1, sabonete: 1, pasta: 1, papel: 1, detergente: 2, sabaopó: 1, desinfetante: 1,
   },
   alta: {
-    arroz: 1, feijao: 0, pao: 4, leite: 12, carne: 8, frango: 2, oleo: 1, acucar: 1, cafe: 2, macarrao: 1,
-    cerveja: 16, refrigerante: 8, agua: 12, gasolina: 80, onibus: 0, luz: 1, celular: 1, internet: 1,
-    medicamento: 2, shampoo: 1, sabonete: 2, papel: 1, detergente: 2, cigarro: 0,
-    tenis: 1, camiseta: 2,
+    arroz: 1, feijao: 0, macarrao: 1, farinha: 0,
+    carne: 6, frango: 2, ovos: 3, linguica: 2,
+    leite: 12, queijo: 2, manteiga: 1, iogurte: 8,
+    pao: 4, biscoito: 2, bolo: 2,
+    oleo: 1, acucar: 1, cafe: 2, sal: 1, tomate: 3, cebola: 1, batata: 2, banana: 3,
+    agua: 8, refrigerante: 2, cerveja: 12, suco: 4,
+    shampoo: 1, sabonete: 1, pasta: 1, papel: 1, detergente: 2, sabaopó: 1, desinfetante: 1,
   },
 }
 
-const CATEGORIAS = ['alimentação', 'bebidas', 'transporte', 'moradia', 'telecom', 'saúde', 'higiene', 'limpeza', 'vestuário', 'outros'] as const
+const CATEGORIAS = ['cereais e grãos', 'carnes e ovos', 'laticínios', 'padaria', 'básicos', 'bebidas', 'higiene e limpeza'] as const
 
 function fmt(v: number) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v) }
 
@@ -102,11 +127,11 @@ export default function ProductXRay() {
 
   return (
     <div className="space-y-6">
-      <SEO title="Compras do Dia a Dia — Impostos escondidos" description="Monte sua lista de compras e descubra quanto de imposto está embutido no preço." path="/produtos" />
+      <SEO title="Compra do Mês — Impostos no supermercado" description="Monte seu carrinho de supermercado e descubra quanto de imposto está escondido em cada produto." path="/produtos" />
 
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-xl font-semibold text-white">Compras do Dia a Dia</h1>
-        <p className="text-txt-secondary text-sm mt-0.5">Monte sua lista e veja quanto de imposto está escondido</p>
+        <h1 className="text-xl font-semibold text-white">Compra do Mês</h1>
+        <p className="text-txt-secondary text-sm mt-0.5">Monte seu carrinho de supermercado e veja o imposto escondido em cada produto</p>
       </motion.div>
 
       {/* Perfis */}
