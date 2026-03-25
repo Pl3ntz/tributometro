@@ -244,33 +244,10 @@ export default function ProductXRay() {
         )
       })}
 
-      {/* Resumo por categoria */}
-      {summary.totalSpent > 0 && (
-        <motion.div className="rounded-2xl shadow-card p-5" style={{ background: 'linear-gradient(180deg, #0F2440 0%, #0C1525 100%)' }}
-          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h3 className="text-[10px] uppercase tracking-widest text-txt-tertiary mb-4">Impostos por categoria</h3>
-          <div className="space-y-2.5">
-            {Object.entries(summary.byCategory).sort(([, a], [, b]) => b.tax - a.tax).map(([cat, data]) => {
-              const maxTax = Math.max(...Object.values(summary.byCategory).map(d => d.tax))
-              return (
-                <div key={cat} className="flex items-center gap-3">
-                  <span className="text-xs text-txt-secondary w-24 capitalize flex-shrink-0">{cat}</span>
-                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: '#080E1A' }}>
-                    <motion.div className="h-full rounded-full" style={{ backgroundColor: '#E5A216', width: `${maxTax > 0 ? (data.tax / maxTax) * 100 : 0}%` }}
-                      initial={{ width: 0 }} animate={{ width: `${maxTax > 0 ? (data.tax / maxTax) * 100 : 0}%` }} transition={{ duration: 0.5 }} />
-                  </div>
-                  <span className="text-xs font-mono text-gold-400 w-20 text-right">{fmt(data.tax)}</span>
-                </div>
-              )
-            })}
-          </div>
-          <div className="mt-4 pt-3" style={{ borderTop: '1px solid #163356' }}>
-            <p className="text-[10px] text-txt-tertiary">
-              Fonte: IBPT (De Olho no Imposto, Lei 12.741/2012). Impostos por dentro (embutidos no preço). Dados SC 2026.
-            </p>
-          </div>
-        </motion.div>
-      )}
+      {/* Fonte */}
+      <p className="text-[10px] text-txt-tertiary text-center">
+        Fonte: IBPT (De Olho no Imposto, Lei 12.741/2012). Impostos calculados por dentro (embutidos no preço). Dados SC 2026.
+      </p>
     </div>
   )
 }
