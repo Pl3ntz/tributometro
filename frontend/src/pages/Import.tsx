@@ -58,7 +58,7 @@ export default function Import() {
         <div className="flex gap-2 mt-4">
           <input type="text" value={nfceUrl} onChange={e => setNfceUrl(e.target.value)} placeholder="Cole a URL do QR Code aqui..."
             className="flex-1 rounded-xl px-4 py-2.5 text-sm focus:outline-none transition-all"
-            style={{ backgroundColor: '#1A1A1E', color: '#EDEDF0', border: '1px solid #3D3D48' }}
+            style={{ backgroundColor: '#0C1525', color: '#FFFFFF', border: '1px solid #163356' }}
             onKeyDown={e => e.key === 'Enter' && handleNfceScan()} />
           <motion.button onClick={handleNfceScan} disabled={nfceResult.status === 'loading' || !nfceUrl.trim()}
             className="bg-blood-600 hover:bg-blood-500 disabled:opacity-40 text-white text-sm font-medium px-5 py-2.5 rounded-xl shadow-glow-red transition-all flex items-center gap-2"

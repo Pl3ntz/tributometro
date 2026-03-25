@@ -505,9 +505,9 @@ export default function Home() {
                 placeholder="5.000,00"
                 className="w-full rounded-2xl pl-14 pr-6 py-4 text-xl sm:text-2xl font-mono text-center focus:outline-none transition-all"
                 style={{
-                  backgroundColor: '#1A1A1E',
-                  color: '#EDEDF0',
-                  border: '1px solid #3D3D48',
+                  backgroundColor: '#0C1525',
+                  color: '#FFFFFF',
+                  border: '1px solid #163356',
                   caretColor: '#FC5555',
                 }}
               />

@@ -11,7 +11,7 @@
 .flip-card-top, .flip-card-bottom, .flip-card-flap-top, .flip-card-flap-bottom {
   position: absolute; left: 0; right: 0;
   display: flex; align-items: center; justify-content: center; overflow: hidden;
-  background: linear-gradient(180deg, #232328 0%, #1A1A1E 100%);
+  background: linear-gradient(180deg, #0F2440 0%, #0C1525 100%);
   border: none;
   color: #F5B731;
   font-weight: 500;
@@ -20,15 +20,15 @@
 }
 .flip-card-top { top: 0; height: 50%; border-radius: 8px 8px 0 0; align-items: flex-end; }
 .flip-card-top span { transform: translateY(50%); }
-.flip-card-bottom { bottom: 0; height: 50%; border-radius: 0 0 8px 8px; align-items: flex-start; background: linear-gradient(180deg, #1A1A1E 0%, #111113 100%); }
+.flip-card-bottom { bottom: 0; height: 50%; border-radius: 0 0 8px 8px; align-items: flex-start; background: linear-gradient(180deg, #0C1525 0%, #080E1A 100%); }
 .flip-card-bottom span { transform: translateY(-50%); }
 .flip-card-flap-top { top: 0; height: 50%; border-radius: 8px 8px 0 0; align-items: flex-end; transform-origin: bottom center; animation: flipTop 0.4s ease-in forwards; z-index: 3; backface-visibility: hidden; }
 .flip-card-flap-top span { transform: translateY(50%); }
-.flip-card-flap-bottom { bottom: 0; height: 50%; border-radius: 0 0 8px 8px; align-items: flex-start; transform-origin: top center; animation: flipBottom 0.4s ease-out forwards; animation-delay: 0.2s; z-index: 2; transform: rotateX(90deg); background: linear-gradient(180deg, #1A1A1E 0%, #111113 100%); }
+.flip-card-flap-bottom { bottom: 0; height: 50%; border-radius: 0 0 8px 8px; align-items: flex-start; transform-origin: top center; animation: flipBottom 0.4s ease-out forwards; animation-delay: 0.2s; z-index: 2; transform: rotateX(90deg); background: linear-gradient(180deg, #0C1525 0%, #080E1A 100%); }
 .flip-card-flap-bottom span { transform: translateY(-50%); }
 @keyframes flipTop { 0% { transform: rotateX(0deg); } 100% { transform: rotateX(-90deg); opacity: 0; } }
 @keyframes flipBottom { 0% { transform: rotateX(90deg); opacity: 0.5; } 100% { transform: rotateX(0deg); opacity: 1; } }
 .flip-card-line { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,0.6); z-index: 5; }
-.flip-separator { font-family: 'Fira Code', monospace; color: #6B6B7B; font-size: 0.8em; display: inline-flex; align-items: flex-end; padding-bottom: 0.15em; width: 0.5em; justify-content: center; }
-.flip-prefix { font-family: 'Fira Code', monospace; color: #A0A0AE; font-size: 0.65em; display: inline-flex; align-items: center; padding: 0 0.1em; }
+.flip-separator { font-family: 'Fira Code', monospace; color: #6B7FA0; font-size: 0.8em; display: inline-flex; align-items: flex-end; padding-bottom: 0.15em; width: 0.5em; justify-content: center; }
+.flip-prefix { font-family: 'Fira Code', monospace; color: #B8C4D6; font-size: 0.65em; display: inline-flex; align-items: center; padding: 0 0.1em; }
 .flip-space { width: 0.4em; }

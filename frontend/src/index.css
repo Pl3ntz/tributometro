@@ -4,25 +4,25 @@
 
 @layer base {
   body {
-    background-color: #111113;
-    color: #EDEDF0;
+    background-color: #080E1A;
+    color: #FFFFFF;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   input, select, textarea {
-    background-color: #18181C;
-    color: #EDEDF0;
-    border: 1px solid #3D3D48;
+    background-color: #0C1525;
+    color: #FFFFFF;
+    border: 1px solid #163356;
   }
-  input::placeholder { color: #6B6B7B; }
+  input::placeholder { color: #6B7FA0; }
   input:focus, select:focus, textarea:focus {
     border-color: #E5A216;
     outline: none;
-    box-shadow: 0 0 0 2px rgba(229, 162, 22, 0.35);
+    box-shadow: 0 0 0 2px rgba(229, 162, 22, 0.3);
   }
-  option { background-color: #1A1A1E; color: #EDEDF0; }
+  option { background-color: #0C1525; color: #FFFFFF; }
 }
 
 .font-mono, code, pre {
@@ -30,4 +30,4 @@
   font-variant-numeric: tabular-nums slashed-zero;
 }
 
-::selection { background: #E5A216; color: #111113; }
+::selection { background: #E5A216; color: #080E1A; }

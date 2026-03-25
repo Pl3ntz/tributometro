@@ -49,11 +49,11 @@ export default function Transactions() {
             <Filter size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-content-tertiary" />
             <input type="month" value={month} onChange={e => setMonth(e.target.value)}
               className="rounded-xl pl-8 pr-3 py-2 text-sm focus:outline-none transition-all w-40"
-              style={{ backgroundColor: '#1A1A1E', color: '#A0A0AE', border: '1px solid #3D3D48' }} />
+              style={{ backgroundColor: '#0C1525', color: '#B8C4D6', border: '1px solid #163356' }} />
           </div>
           <select value={source} onChange={e => setSource(e.target.value)}
             className="rounded-xl px-3 py-2 text-sm focus:outline-none transition-all"
-            style={{ backgroundColor: '#1A1A1E', color: '#A0A0AE', border: '1px solid #3D3D48' }}>
+            style={{ backgroundColor: '#0C1525', color: '#B8C4D6', border: '1px solid #163356' }}>
             <option value="">Todas</option>
             <option value="nfce">NFCe</option>
             <option value="ofx">OFX</option>

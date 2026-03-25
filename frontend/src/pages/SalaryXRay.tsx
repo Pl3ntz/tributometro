@@ -43,7 +43,7 @@ export default function SalaryXRay() {
       />
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-xl font-semibold text-txt-primary">Raio-X do Salário</h1>
+        <h1 className="text-xl font-semibold text-white">Raio-X do Salário</h1>
         <p className="text-txt-tertiary text-sm mt-0.5">
           Descubra quanto do seu dinheiro é imposto — do custo da empresa ao seu poder de compra real
         </p>
@@ -73,7 +73,7 @@ export default function SalaryXRay() {
           <motion.button
             onClick={handleCalculate}
             disabled={loading || !salary}
-            className="bg-accent-400 hover:bg-accent-500 disabled:opacity-40 text-surface-0 font-semibold px-8 py-3.5 rounded-xl shadow-glow transition-all flex items-center gap-2"
+            className="bg-gold-400 hover:bg-gold-500 disabled:opacity-40 text-surface-0 font-semibold px-8 py-3.5 rounded-xl shadow-glow transition-all flex items-center gap-2"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -96,11 +96,11 @@ export default function SalaryXRay() {
               key={value}
               onClick={() => { setSalary(value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })); }}
               className="group flex flex-col items-start px-3 py-2 rounded-lg transition-all hover:scale-[1.03]"
-              style={{ backgroundColor: '#232328', border: '1px solid #2C2C33' }}
+              style={{ backgroundColor: '#0F2440', border: '1px solid #163356' }}
               onMouseOver={e => { (e.currentTarget.style.borderColor = '#E5A21640'); (e.currentTarget.style.backgroundColor = '#1C1C2E'); }}
-              onMouseOut={e => { (e.currentTarget.style.borderColor = '#2C2C33'); (e.currentTarget.style.backgroundColor = '#232328'); }}
+              onMouseOut={e => { (e.currentTarget.style.borderColor = '#163356'); (e.currentTarget.style.backgroundColor = '#0F2440'); }}
             >
-              <span className="text-xs font-medium text-txt-primary">{label}</span>
+              <span className="text-xs font-medium text-white">{label}</span>
               <span className="text-[10px] text-txt-tertiary font-mono">{fmt(value)}</span>
               <span className="text-[11px] text-txt-tertiary mt-0.5">{desc}</span>
             </button>
@@ -112,7 +112,7 @@ export default function SalaryXRay() {
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div key="loading" className="flex justify-center py-16" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-400" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold-400" />
           </motion.div>
         )}
 
@@ -128,14 +128,14 @@ export default function SalaryXRay() {
             {/* ── Summary hero ── */}
             <div className="rounded-2xl bg-gradient-hero shadow-glow-lg overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-glow opacity-50" />
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-800 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3" />
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-navy-800 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3" />
               <div className="relative p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <div>
-                  <p className="text-xs text-accent-300/70 uppercase tracking-widest mb-2 flex items-center gap-2">
+                  <p className="text-xs text-gold-300/70 uppercase tracking-widest mb-2 flex items-center gap-2">
                     <AlertTriangle size={12} />
                     O número que ninguém te mostra
                   </p>
-                  <p className="text-4xl font-bold font-mono text-accent-300 drop-shadow-[0_0_20px_rgba(229,162,22,0.3)]">
+                  <p className="text-4xl font-bold font-mono text-gold-300 drop-shadow-[0_0_20px_rgba(229,162,22,0.3)]">
                     {pct(data.summary.total_tax_percentage)}
                   </p>
                   <p className="text-txt-secondary text-sm mt-1">do dinheiro é consumido por impostos em todas as camadas</p>
@@ -211,7 +211,7 @@ export default function SalaryXRay() {
                             <span className="text-txt-tertiary">{item.category}</span>
                             <div className="flex items-center gap-3">
                               <span className="text-txt-tertiary">{fmt(item.spent)}</span>
-                              <span className="text-accent-400 font-mono font-medium w-20 text-right">{fmt(item.tax)}</span>
+                              <span className="text-gold-400 font-mono font-medium w-20 text-right">{fmt(item.tax)}</span>
                               <span className="text-txt-tertiary w-10 text-right">{pct(item.tax_rate * 100)}</span>
                             </div>
                           </div>
@@ -227,7 +227,7 @@ export default function SalaryXRay() {
               {/* Layer 4: Real purchasing power */}
               <WaterfallLayer
                 icon={<Target size={16} />}
-                color="accent-400"
+                color="gold-400"
                 title="Seu poder de compra REAL"
                 value={data.summary.real_purchasing_power}
                 highlight
@@ -242,11 +242,11 @@ export default function SalaryXRay() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
             >
-              <h3 className="text-sm font-medium text-txt-primary mb-4">De cada R$ 100 que a empresa gasta com você</h3>
+              <h3 className="text-sm font-medium text-white mb-4">De cada R$ 100 que a empresa gasta com você</h3>
               <div className="space-y-3">
-                <BarRow label="Impostos sobre receita" value={data.company.taxes_on_revenue} total={data.company.revenue_needed} color="bg-surface-4" />
-                <BarRow label="Encargos + provisões" value={data.company.charges + data.company.provisions} total={data.company.revenue_needed} color="bg-accent-600" />
-                <BarRow label="INSS + IRPF" value={data.employee.inss + data.employee.irpf} total={data.company.revenue_needed} color="bg-accent-400" />
+                <BarRow label="Impostos sobre receita" value={data.company.taxes_on_revenue} total={data.company.revenue_needed} color="bg-navy-600" />
+                <BarRow label="Encargos + provisões" value={data.company.charges + data.company.provisions} total={data.company.revenue_needed} color="bg-gold-600" />
+                <BarRow label="INSS + IRPF" value={data.employee.inss + data.employee.irpf} total={data.company.revenue_needed} color="bg-gold-400" />
                 <BarRow label="Impostos no consumo" value={data.consumption.total_tax} total={data.company.revenue_needed} color="bg-alert-600" />
                 <BarRow label="Poder de compra real" value={data.summary.real_purchasing_power} total={data.company.revenue_needed} color="bg-success" highlight />
               </div>
@@ -261,7 +261,7 @@ export default function SalaryXRay() {
 
 function StatBadge({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="bg-surface-2 shadow-card rounded-xl px-4 py-3 text-center min-w-[100px]">
+    <div className="bg-navy-800 shadow-card rounded-xl px-4 py-3 text-center min-w-[100px]">
       <div className="flex items-center justify-center gap-1.5 text-alert-400 mb-1">{icon}<span className="font-mono font-bold text-lg">{value}</span></div>
       <p className="text-[10px] text-txt-tertiary">{label}</p>
     </div>
@@ -281,9 +281,9 @@ function WaterfallLayer({ icon, color, title, value, children, highlight, delay 
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className={`text-${color}`}>{icon}</span>
-          <span className="text-sm font-medium text-txt-primary">{title}</span>
+          <span className="text-sm font-medium text-white">{title}</span>
         </div>
-        <span className={`text-xl font-bold font-mono ${highlight ? 'text-accent-300 drop-shadow-[0_0_12px_rgba(229,162,22,0.3)]' : 'text-txt-primary'}`}>
+        <span className={`text-xl font-bold font-mono ${highlight ? 'text-gold-300 drop-shadow-[0_0_12px_rgba(229,162,22,0.3)]' : 'text-white'}`}>
           {fmt(value)}
         </span>
       </div>
@@ -296,7 +296,7 @@ function WaterfallItem({ label, value, type }: { label: string; value: number; t
   return (
     <div className="flex items-center justify-between text-xs">
       <span className="text-txt-tertiary">{label}</span>
-      <span className={`font-mono font-medium ${type === 'exempt' ? 'text-success' : 'text-accent-400'}`}>
+      <span className={`font-mono font-medium ${type === 'exempt' ? 'text-success' : 'text-gold-400'}`}>
         {type === 'exempt' && value === 0 ? 'R$ 0,00 ✓' : `- ${fmt(value)}`}
       </span>
     </div>
@@ -315,8 +315,8 @@ function BarRow({ label, value, total, color, highlight }: { label: string; valu
   const width = total > 0 ? (value / total) * 100 : 0
   return (
     <div className="flex items-center gap-3">
-      <span className={`text-xs w-40 flex-shrink-0 ${highlight ? 'text-txt-primary font-semibold' : 'text-txt-tertiary'}`}>{label}</span>
-      <div className="flex-1 h-3 rounded-full bg-surface-1 overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]">
+      <span className={`text-xs w-40 flex-shrink-0 ${highlight ? 'text-white font-semibold' : 'text-txt-tertiary'}`}>{label}</span>
+      <div className="flex-1 h-3 rounded-full bg-navy-900 overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]">
         <motion.div
           className={`h-full rounded-full ${color} ${highlight ? 'shadow-[0_0_8px_rgba(34,197,94,0.3)]' : ''}`}
           initial={{ width: 0 }}

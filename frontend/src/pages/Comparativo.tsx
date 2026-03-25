@@ -281,7 +281,7 @@ function LawBadge({ law }: { law: string }) {
   return (
     <span
       className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded"
-      style={{ backgroundColor: '#232328', color: '#6B6B7B', border: '1px solid #2C2C33' }}
+      style={{ backgroundColor: '#0F2440', color: '#6B7FA0', border: '1px solid #163356' }}
     >
       <Info size={8} />
       {law}
@@ -338,7 +338,7 @@ export default function Comparativo() {
       />
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-xl font-semibold text-txt-primary flex items-center gap-2">
+        <h1 className="text-xl font-semibold text-white flex items-center gap-2">
           <Scale size={22} className="text-info" />
           Comparativo de Regimes
         </h1>
@@ -366,7 +366,7 @@ export default function Comparativo() {
               onChange={handleInput}
               id="comp-salary-input" inputMode="numeric" autoComplete="off" placeholder="5.000,00"
               className="w-full rounded-xl pl-12 pr-4 py-3.5 text-lg font-mono focus:outline-none transition-all"
-              style={{ backgroundColor: '#1A1A1E', color: '#EDEDF0', border: '1px solid #3D3D48', caretColor: '#F5B731' }}
+              style={{ backgroundColor: '#0C1525', color: '#FFFFFF', border: '1px solid #163356', caretColor: '#F5B731' }}
             />
           </div>
         </div>
@@ -378,17 +378,17 @@ export default function Comparativo() {
               key={value}
               onClick={() => setSalary(value.toLocaleString('pt-BR', { minimumFractionDigits: 2 }))}
               className="group flex flex-col items-start px-3 py-2 rounded-lg transition-all hover:scale-[1.03]"
-              style={{ backgroundColor: '#232328', border: '1px solid #2C2C33' }}
+              style={{ backgroundColor: '#0F2440', border: '1px solid #163356' }}
               onMouseOver={(e) => {
                 e.currentTarget.style.borderColor = '#E5A21640'
                 e.currentTarget.style.backgroundColor = '#1C1C2E'
               }}
               onMouseOut={(e) => {
-                e.currentTarget.style.borderColor = '#2C2C33'
-                e.currentTarget.style.backgroundColor = '#232328'
+                e.currentTarget.style.borderColor = '#163356'
+                e.currentTarget.style.backgroundColor = '#0F2440'
               }}
             >
-              <span className="text-xs font-medium text-txt-primary">{label}</span>
+              <span className="text-xs font-medium text-white">{label}</span>
               <span className="text-[10px] text-txt-tertiary font-mono">{fmt(value)}</span>
               <span className="text-[11px] text-txt-tertiary mt-0.5">{desc}</span>
             </button>
@@ -408,9 +408,9 @@ export default function Comparativo() {
                   onClick={() => toggleRegime(regime)}
                   className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
                   style={{
-                    backgroundColor: isSelected ? `${meta.color}15` : '#232328',
-                    border: `1px solid ${isSelected ? `${meta.color}50` : '#2C2C33'}`,
-                    color: isSelected ? meta.color : '#A0A0AE',
+                    backgroundColor: isSelected ? `${meta.color}15` : '#0F2440',
+                    border: `1px solid ${isSelected ? `${meta.color}50` : '#163356'}`,
+                    color: isSelected ? meta.color : '#B8C4D6',
                   }}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
@@ -448,7 +448,7 @@ export default function Comparativo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h3 className="text-sm font-medium text-txt-primary mb-4 flex items-center gap-2">
+              <h3 className="text-sm font-medium text-white mb-4 flex items-center gap-2">
                 Comparativo visual
                 {bestRegime && bestRegime.viable && (
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-mono" style={{ backgroundColor: '#48BB7820', color: '#48BB78' }}>
@@ -469,7 +469,7 @@ export default function Comparativo() {
                           {fmt(result.liquido)} líquido ({pct(result.pctImpostos)} impostos)
                         </span>
                       </div>
-                      <div className="flex h-6 rounded-lg overflow-hidden" style={{ backgroundColor: '#111113' }}>
+                      <div className="flex h-6 rounded-lg overflow-hidden" style={{ backgroundColor: '#080E1A' }}>
                         <motion.div
                           className="h-full rounded-l-lg"
                           style={{
@@ -547,9 +547,9 @@ function RegimeCard({ result, isBest, delay }: { result: RegimeResult; isBest: b
       >
         <div className="flex items-center gap-2 mb-3">
           <span style={{ color: meta.color }}>{meta.icon}</span>
-          <span className="text-sm font-medium text-txt-primary">{meta.label}</span>
+          <span className="text-sm font-medium text-white">{meta.label}</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-accent-400">
+        <div className="flex items-center gap-2 text-xs text-gold-400">
           <AlertTriangle size={14} />
           {result.warning}
         </div>
@@ -577,7 +577,7 @@ function RegimeCard({ result, isBest, delay }: { result: RegimeResult; isBest: b
 
       <div className="flex items-center gap-2 mb-4">
         <span style={{ color: meta.color }}>{meta.icon}</span>
-        <span className="text-sm font-medium text-txt-primary">{meta.label}</span>
+        <span className="text-sm font-medium text-white">{meta.label}</span>
       </div>
 
       {/* Custo empresa */}
@@ -589,7 +589,7 @@ function RegimeCard({ result, isBest, delay }: { result: RegimeResult; isBest: b
       {/* Liquido */}
       <div className="mb-3">
         <p className="text-[10px] text-txt-tertiary uppercase tracking-wider">Valor líquido</p>
-        <p className={`text-xl font-bold font-mono ${isBest ? 'text-success' : 'text-txt-primary'}`}>
+        <p className={`text-xl font-bold font-mono ${isBest ? 'text-success' : 'text-white'}`}>
           {fmt(result.liquido)}
         </p>
       </div>
@@ -598,13 +598,13 @@ function RegimeCard({ result, isBest, delay }: { result: RegimeResult; isBest: b
       <div className="mb-4">
         <p className="text-[10px] text-txt-tertiary uppercase tracking-wider">Total impostos</p>
         <div className="flex items-center gap-2">
-          <p className="text-base font-bold font-mono text-accent-400">{pct(result.pctImpostos)}</p>
+          <p className="text-base font-bold font-mono text-gold-400">{pct(result.pctImpostos)}</p>
           <span className="text-[10px] text-txt-tertiary font-mono">({fmt(result.totalImpostos)})</span>
         </div>
       </div>
 
       {/* Mini bar */}
-      <div className="h-2 rounded-full overflow-hidden mb-3" style={{ backgroundColor: '#111113' }}>
+      <div className="h-2 rounded-full overflow-hidden mb-3" style={{ backgroundColor: '#080E1A' }}>
         <motion.div
           className="h-full rounded-full"
           style={{ backgroundColor: isBest ? '#48BB78' : meta.color }}
@@ -631,12 +631,12 @@ function RegimeCard({ result, isBest, delay }: { result: RegimeResult; isBest: b
             transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className="space-y-1.5 mt-2 pt-2" style={{ borderTop: '1px solid #2C2C33' }}>
+            <div className="space-y-1.5 mt-2 pt-2" style={{ borderTop: '1px solid #163356' }}>
               {result.impostos.map((item) => (
                 <div key={item.label} className="flex flex-col gap-0.5">
                   <div className="flex items-center justify-between text-[11px]">
                     <span className="text-txt-tertiary">{item.label}</span>
-                    <span className="text-accent-400 font-mono font-medium">{fmt(item.value)}</span>
+                    <span className="text-gold-400 font-mono font-medium">{fmt(item.value)}</span>
                   </div>
                   <LawBadge law={item.law} />
                 </div>

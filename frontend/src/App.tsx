@@ -18,29 +18,29 @@ function App() {
   // Landing page renders full-width without sidebar
   if (isLanding) {
     return (
-      <div className="min-h-screen bg-surface-0">
+      <div className="min-h-screen bg-navy-950">
         <Landing />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-surface-0 flex">
+    <div className="min-h-screen bg-navy-950 flex">
       {/* Sidebar */}
       <motion.aside
-        className="hidden lg:flex flex-col w-64 bg-surface-1 shadow-elevated fixed h-screen z-40"
+        className="hidden lg:flex flex-col w-64 bg-navy-900 shadow-elevated fixed h-screen z-40"
         initial={{ x: -64, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="p-6 pb-8">
           <NavLink to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center shadow-glow">
-              <Eye size={20} className="text-accent-200" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center shadow-glow">
+              <Eye size={20} className="text-gold-200" />
             </div>
             <div>
-              <span className="text-lg font-semibold text-txt-primary">Tributô</span>
-              <span className="text-lg font-light text-accent-400">Metro</span>
+              <span className="text-lg font-semibold text-white">Tributô</span>
+              <span className="text-lg font-light text-gold-400">Metro</span>
             </div>
           </NavLink>
           <p className="text-[10px] text-txt-tertiary mt-2 uppercase tracking-wider">Cada centavo exposto</p>
@@ -55,8 +55,8 @@ function App() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group ${
                   isActive
-                    ? 'bg-accent-800 text-accent-400 shadow-glow'
-                    : 'text-txt-tertiary hover:text-txt-secondary hover:bg-surface-2'
+                    ? 'bg-navy-800 text-gold-400 shadow-glow'
+                    : 'text-txt-tertiary hover:text-txt-secondary hover:bg-navy-800'
                 }`
               }
             >
@@ -66,24 +66,24 @@ function App() {
           ))}
         </nav>
 
-        <div className="p-4 m-3 rounded-xl bg-accent-900 shadow-glow">
-          <p className="text-base font-bold text-accent-300 font-mono tabular-nums">40,82%</p>
+        <div className="p-4 m-3 rounded-xl bg-navy-900 shadow-glow">
+          <p className="text-base font-bold text-gold-300 font-mono tabular-nums">40,82%</p>
           <p className="text-[10px] text-txt-tertiary mt-1 leading-tight">da sua renda vai para impostos no Brasil</p>
         </div>
       </motion.aside>
 
       {/* Mobile nav */}
       <motion.nav
-        className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-surface-1 shadow-elevated"
+        className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-navy-900 shadow-elevated"
         initial={{ y: -60 }}
         animate={{ y: 0 }}
       >
         <div className="flex items-center justify-between px-4 h-14">
           <NavLink to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center shadow-glow">
-              <Eye size={14} className="text-accent-200" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center shadow-glow">
+              <Eye size={14} className="text-gold-200" />
             </div>
-            <span className="text-sm font-semibold text-txt-primary">Tributô<span className="text-accent-400 font-light">Metro</span></span>
+            <span className="text-sm font-semibold text-white">Tributô<span className="text-gold-400 font-light">Metro</span></span>
           </NavLink>
           <div className="flex gap-1">
             {navItems.map(({ to, icon: Icon, label, end }) => (
@@ -93,7 +93,7 @@ function App() {
                 end={end}
                 aria-label={label}
                 className={({ isActive }) =>
-                  `p-2.5 rounded-lg transition-colors ${isActive ? 'bg-accent-800 text-accent-400' : 'text-txt-tertiary'}`
+                  `p-2.5 rounded-lg transition-colors ${isActive ? 'bg-navy-800 text-gold-400' : 'text-txt-tertiary'}`
                 }
               >
                 <Icon size={18} aria-hidden="true" />

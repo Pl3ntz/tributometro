@@ -97,13 +97,13 @@ function HoverCard({ children, className = '', delay = 0 }: HoverCardProps) {
     <motion.div
       ref={ref}
       className={`rounded-2xl shadow-card h-full flex flex-col ${className}`}
-      style={{ backgroundColor: '#1E1E24', border: '1px solid #2A2A32' }}
+      style={{ backgroundColor: '#0F2440', border: '1px solid #0F2440' }}
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{
         y: -4,
-        borderColor: '#3D3D48',
+        borderColor: '#163356',
         boxShadow: '0 8px 24px rgba(0,0,0,0.5), 0 0 16px rgba(229,162,22,0.06)',
         transition: { duration: 0.2 },
       }}
@@ -123,7 +123,7 @@ interface HeadingProps {
 function SectionHeading({ children, subtitle }: HeadingProps) {
   return (
     <div className="text-center mb-10 lg:mb-12">
-      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-txt-primary">
+      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
         {children}
       </h2>
       {subtitle && (
@@ -180,10 +180,10 @@ interface StatCardProps {
 function StatCard({ value, label, source, delay }: StatCardProps) {
   return (
     <HoverCard className="p-5 text-center" delay={delay}>
-      <p className="text-xl font-bold font-mono text-accent-400 tabular-nums">
+      <p className="text-xl font-bold font-mono text-gold-400 tabular-nums">
         {value}
       </p>
-      <p className="text-sm text-txt-primary mt-2 flex-1">{label}</p>
+      <p className="text-sm text-white mt-2 flex-1">{label}</p>
       <p className="text-[10px] text-txt-tertiary mt-3 uppercase tracking-wider">
         {source}
       </p>
@@ -217,7 +217,7 @@ function StepItem({ icon, title, description, step, delay }: StepItemProps) {
           {icon}
         </div>
       </div>
-      <h3 className="text-sm font-semibold text-txt-primary mb-2">{title}</h3>
+      <h3 className="text-sm font-semibold text-white mb-2">{title}</h3>
       <p className="text-xs text-txt-secondary leading-relaxed flex-1">{description}</p>
     </HoverCard>
   )
@@ -322,7 +322,7 @@ export default function Landing() {
   }
 
   return (
-    <div className="min-h-screen bg-surface-0 text-txt-primary overflow-x-hidden">
+    <div className="min-h-screen bg-navy-950 text-white overflow-x-hidden">
       <SEOHead />
       <FAQSchemaData />
       <CalculatorSchemaData />
@@ -346,7 +346,7 @@ export default function Landing() {
           style={{ opacity: heroOpacity }}
         >
           <motion.p
-            className="text-xs sm:text-sm uppercase tracking-[0.2em] text-accent-400 font-semibold mb-6"
+            className="text-xs sm:text-sm uppercase tracking-[0.2em] text-gold-400 font-semibold mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -355,14 +355,14 @@ export default function Landing() {
           </motion.p>
 
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-txt-primary"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             Cada preço tem um segredo.
             <br />
-            <span className="text-accent-400">Aqui ele aparece.</span>
+            <span className="text-gold-400">Aqui ele aparece.</span>
           </motion.h1>
 
           <motion.p
@@ -389,7 +389,7 @@ export default function Landing() {
             >
               {formattedCounter}
             </span>
-            <span className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono text-accent-400 ml-1">
+            <span className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono text-gold-400 ml-1">
               %
             </span>
             <p className="text-sm sm:text-base text-txt-secondary mt-3">
@@ -429,8 +429,8 @@ export default function Landing() {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <div className="w-5 h-8 rounded-full flex justify-center pt-1.5" style={{ border: '2px solid #3D3D48' }}>
-            <div className="w-1 h-2 rounded-full" style={{ backgroundColor: '#6B6B7B' }} />
+          <div className="w-5 h-8 rounded-full flex justify-center pt-1.5" style={{ border: '2px solid #163356' }}>
+            <div className="w-1 h-2 rounded-full" style={{ backgroundColor: '#6B7FA0' }} />
           </div>
         </motion.div>
       </div>
@@ -450,7 +450,7 @@ export default function Landing() {
                 >
                   <Icon size={22} style={{ color: '#F5B731' }} />
                 </div>
-                <h3 className="text-base font-semibold text-txt-primary mb-2">
+                <h3 className="text-base font-semibold text-white mb-2">
                   {card.title}
                 </h3>
                 <p className="text-sm text-txt-secondary leading-relaxed flex-1">
@@ -514,7 +514,7 @@ export default function Landing() {
                 >
                   <Icon size={22} style={{ color: '#E5A216' }} />
                 </div>
-                <h3 className="text-base font-semibold text-txt-primary mb-2">
+                <h3 className="text-base font-semibold text-white mb-2">
                   {card.title}
                 </h3>
                 <p className="text-sm text-txt-secondary leading-relaxed flex-1">
@@ -547,7 +547,7 @@ export default function Landing() {
           animate={waffleInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 1.4 }}
         >
-          <p className="text-base sm:text-lg text-txt-primary font-medium">
+          <p className="text-base sm:text-lg text-white font-medium">
             ...
             <span style={{ color: '#F5B731' }} className="font-bold">
               R$ 4 vão para impostos
@@ -586,7 +586,7 @@ export default function Landing() {
           }}
         >
           <div className="relative z-10">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold" style={{ color: '#111113' }}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold" style={{ color: '#080E1A' }}>
               Pare de pagar sem saber quanto.
             </h2>
             <p className="mt-4 text-base sm:text-lg" style={{ color: '#2E2008' }}>
@@ -597,7 +597,7 @@ export default function Landing() {
               onClick={handleCTA}
               type="button" className="mt-10 inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-semibold cursor-pointer"
               style={{
-                backgroundColor: '#111113',
+                backgroundColor: '#080E1A',
                 color: '#F5B731',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
               }}
@@ -616,14 +616,14 @@ export default function Landing() {
       </Section>
 
       {/* ═══ SEÇÃO 8 — FOOTER ═══ */}
-      <footer className="py-12 sm:py-16 px-4 sm:px-6" style={{ borderTop: '1px solid #232328' }}>
+      <footer className="py-12 sm:py-16 px-4 sm:px-6" style={{ borderTop: '1px solid #0F2440' }}>
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <div className="flex items-center justify-center gap-2 mb-6">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center shadow-glow">
-              <Eye size={14} className="text-accent-200" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center shadow-glow">
+              <Eye size={14} className="text-gold-200" />
             </div>
-            <span className="text-sm font-semibold text-txt-primary">
-              Tributô<span className="text-accent-400 font-light">Metro</span>
+            <span className="text-sm font-semibold text-white">
+              Tributô<span className="text-gold-400 font-light">Metro</span>
             </span>
             <span className="text-txt-tertiary mx-1">—</span>
             <span className="text-xs text-txt-tertiary">

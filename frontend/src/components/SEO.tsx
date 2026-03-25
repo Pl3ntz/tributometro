@@ -41,7 +41,7 @@ export default function SEO({ title, description, path = '', ogImage }: SEOProps
       {/* Extra */}
       <meta name="robots" content="index, follow" />
       <meta name="author" content="TributôMetro" />
-      <meta name="theme-color" content="#111113" />
+      <meta name="theme-color" content="#080E1A" />
     </Helmet>
   )
 }
