@@ -280,7 +280,7 @@ function calcRegime(regime: Regime, valor: number): RegimeResult {
 function LawBadge({ law }: { law: string }) {
   return (
     <span
-      className="inline-flex items-center gap-1 text-[9px] font-mono px-1.5 py-0.5 rounded"
+      className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded"
       style={{ backgroundColor: '#232328', color: '#6B6B7B', border: '1px solid #2C2C33' }}
     >
       <Info size={8} />
@@ -354,7 +354,7 @@ export default function Comparativo() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <label className="text-xs text-txt-tertiary uppercase tracking-wider block mb-3">
+        <label className="text-xs text-txt-tertiary uppercase tracking-wider block mb-3" htmlFor="comp-salary-input">
           Quanto voce quer ganhar (bruto mensal)
         </label>
         <div className="flex flex-col sm:flex-row gap-3">
@@ -364,7 +364,7 @@ export default function Comparativo() {
               type="text"
               value={salary}
               onChange={handleInput}
-              placeholder="5.000,00"
+              id="comp-salary-input" inputMode="numeric" autoComplete="off" placeholder="5.000,00"
               className="w-full rounded-xl pl-12 pr-4 py-3.5 text-lg font-mono focus:outline-none transition-all"
               style={{ backgroundColor: '#1A1A1E', color: '#EDEDF0', border: '1px solid #3D3D48', caretColor: '#F5B731' }}
             />
@@ -390,7 +390,7 @@ export default function Comparativo() {
             >
               <span className="text-xs font-medium text-txt-primary">{label}</span>
               <span className="text-[10px] text-txt-tertiary font-mono">{fmt(value)}</span>
-              <span className="text-[9px] text-txt-tertiary mt-0.5">{desc}</span>
+              <span className="text-[11px] text-txt-tertiary mt-0.5">{desc}</span>
             </button>
           ))}
         </div>
@@ -567,7 +567,7 @@ function RegimeCard({ result, isBest, delay }: { result: RegimeResult; isBest: b
     >
       {isBest && (
         <div
-          className="absolute top-0 right-0 px-2 py-0.5 rounded-bl-lg text-[9px] font-semibold"
+          className="absolute top-0 right-0 px-2 py-0.5 rounded-bl-lg text-[11px] font-semibold"
           style={{ backgroundColor: '#48BB7825', color: '#48BB78' }}
         >
           <Trophy size={9} className="inline mr-0.5 mb-px" />

@@ -86,16 +86,17 @@ function App() {
             <span className="text-sm font-semibold text-txt-primary">Tributô<span className="text-accent-400 font-light">Metro</span></span>
           </NavLink>
           <div className="flex gap-1">
-            {navItems.map(({ to, icon: Icon, end }) => (
+            {navItems.map(({ to, icon: Icon, label, end }) => (
               <NavLink
                 key={to}
                 to={to}
                 end={end}
+                aria-label={label}
                 className={({ isActive }) =>
                   `p-2.5 rounded-lg transition-colors ${isActive ? 'bg-accent-800 text-accent-400' : 'text-txt-tertiary'}`
                 }
               >
-                <Icon size={18} />
+                <Icon size={18} aria-hidden="true" />
               </NavLink>
             ))}
           </div>

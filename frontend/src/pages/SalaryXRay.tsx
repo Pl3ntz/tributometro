@@ -12,17 +12,20 @@ export default function SalaryXRay() {
   const [salary, setSalary] = useState('')
   const [data, setData] = useState<SalaryBreakdown | null>(null)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [showConsumption, setShowConsumption] = useState(false)
 
   const handleCalculate = async () => {
     const val = parseFloat(salary.replace(/\D/g, '')) / 100
     if (!val || val <= 0) return
     setLoading(true)
+    setError(null)
     try {
       const result = await api.getSalaryBreakdown(val)
       setData(result)
-    } catch { /* */ }
-    finally { setLoading(false) }
+    } catch {
+      setError('Não foi possível calcular. Verifique o valor e tente novamente.')
+    } finally { setLoading(false) }
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,17 +56,17 @@ export default function SalaryXRay() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <label className="text-xs text-txt-tertiary uppercase tracking-wider block mb-3">Salário bruto mensal (CLT)</label>
+        <label className="text-xs text-txt-tertiary uppercase tracking-wider block mb-3" htmlFor="salary-input">Salário bruto mensal (CLT)</label>
         <div className="flex gap-3">
           <div className="relative flex-1">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-txt-tertiary text-sm font-mono">R$</span>
             <input
               type="text"
-              value={salary}
+              id="salary-input" inputMode="numeric" autoComplete="off" value={salary}
               onChange={handleInput}
               placeholder="5.000,00"
               className="w-full rounded-xl pl-12 pr-4 py-3.5 text-lg font-mono focus:outline-none transition-all"
-              style={{ caretColor: '#F5B731' }}
+              style={{ caretColor: "#E5A216" }}
               onKeyDown={e => e.key === 'Enter' && handleCalculate()}
             />
           </div>
@@ -99,7 +102,7 @@ export default function SalaryXRay() {
             >
               <span className="text-xs font-medium text-txt-primary">{label}</span>
               <span className="text-[10px] text-txt-tertiary font-mono">{fmt(value)}</span>
-              <span className="text-[9px] text-txt-tertiary mt-0.5">{desc}</span>
+              <span className="text-[11px] text-txt-tertiary mt-0.5">{desc}</span>
             </button>
           ))}
         </div>
@@ -113,7 +116,13 @@ export default function SalaryXRay() {
           </motion.div>
         )}
 
-        {data && !loading && (
+        {error && !loading && (
+          <motion.div key="error" className="text-center py-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <p role="alert" className="text-error text-sm">{error}</p>
+          </motion.div>
+        )}
+
+        {data && !loading && !error && (
           <motion.div key="results" className="space-y-4" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
 
             {/* ── Summary hero ── */}

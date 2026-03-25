@@ -403,13 +403,13 @@ export default function Landing() {
           {/* CTA */}
           <motion.button
             onClick={handleCTA}
-            className="mt-10 sm:mt-12 inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-colors cursor-pointer"
+            type="button" className="mt-10 sm:mt-12 inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-colors cursor-pointer"
             style={{
               backgroundColor: '#E5A216',
               boxShadow: '0 0 30px rgba(229,162,22,0.25)',
             }}
             whileHover={{
-              backgroundColor: '#C53030',
+              backgroundColor: '#C4880E',
               scale: 1.03,
               boxShadow: '0 0 40px rgba(229,162,22,0.35)',
             }}
@@ -595,7 +595,7 @@ export default function Landing() {
 
             <motion.button
               onClick={handleCTA}
-              className="mt-10 inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-semibold cursor-pointer"
+              type="button" className="mt-10 inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-semibold cursor-pointer"
               style={{
                 backgroundColor: '#111113',
                 color: '#F5B731',
@@ -608,7 +608,7 @@ export default function Landing() {
               <ArrowRight size={18} />
             </motion.button>
 
-            <p className="mt-6 text-xs max-w-md mx-auto" style={{ color: '#7A5409' }}>
+            <p className="mt-6 text-xs max-w-md mx-auto" style={{ color: '#2E2008' }}>
               100% gratuito. Zero cadastro. Seus dados nunca saem do seu navegador.
             </p>
           </div>
@@ -642,7 +642,7 @@ export default function Landing() {
           </p>
 
           <a
-            href="https://github.com"
+            href="https://github.com/Pl3ntz/tributometro"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-xs text-txt-tertiary hover:text-txt-secondary transition-colors mt-4"
