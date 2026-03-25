@@ -1,540 +1,251 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
-  Fuel,
-  Beer,
-  Smartphone,
-  WheatOff,
-  Car,
-  Zap,
-  Cigarette,
-  Pill,
-  Footprints,
-  Phone,
-  GlassWater,
-  Croissant,
-  ArrowDown,
-  Factory,
-  Truck,
-  Store,
-  ShoppingCart,
-  FileText,
-  Info,
-  type LucideIcon,
+  Fuel, Beer, Smartphone, Wheat, Car, Zap, Cigarette, Pill,
+  Footprints, Phone, CupSoda, Croissant, Droplets, Beef, Egg,
+  Plus, Minus, ShoppingCart, AlertTriangle, ChevronDown,
+  Sparkles, SprayCan, Shirt,
 } from 'lucide-react'
 import SEO from '../components/SEO'
-import type { ProductChain, ChainStage, StageTax } from '../constants/product-tax-chains'
-import { PRODUCTS } from '../constants/product-tax-chains'
 
-function fmt(v: number) {
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v)
+const ICONS: Record<string, typeof Fuel> = {
+  arroz: Wheat, feijao: Wheat, pao: Croissant, leite: Droplets,
+  carne: Beef, frango: Egg, oleo: Droplets, acucar: CupSoda,
+  cafe: CupSoda, macarrao: Wheat, cerveja: Beer, refrigerante: CupSoda,
+  agua: Droplets, gasolina: Fuel, onibus: Car, luz: Zap,
+  celular: Phone, internet: Phone, medicamento: Pill,
+  shampoo: Sparkles, sabonete: Sparkles, papel: SprayCan,
+  detergente: SprayCan, cigarro: Cigarette, tenis: Footprints,
+  camiseta: Shirt,
 }
 
-function pct(v: number) {
-  return `${v.toFixed(1)}%`
+const PRODUTOS = [
+  { id: 'arroz', name: 'Arroz 5kg', price: 26.50, tax: 0.12, category: 'alimentação', law: 'Lei SC 19.397/2025 (ICMS isento)' },
+  { id: 'feijao', name: 'Feijão 1kg', price: 8.10, tax: 0.12, category: 'alimentação', law: 'Lei SC 19.397/2025' },
+  { id: 'pao', name: 'Pão francês 1kg', price: 16.00, tax: 0.169, category: 'alimentação', law: 'IBPT — NCM 1905.90.90' },
+  { id: 'leite', name: 'Leite UHT 1L', price: 5.50, tax: 0.187, category: 'alimentação', law: 'IBPT — NCM 0401.20.10' },
+  { id: 'carne', name: 'Carne bovina 1kg', price: 42.00, tax: 0.186, category: 'alimentação', law: 'IBPT — NCM 0201.30.00' },
+  { id: 'frango', name: 'Frango 1kg', price: 15.00, tax: 0.16, category: 'alimentação', law: 'IBPT — NCM 0207.14.00' },
+  { id: 'oleo', name: 'Óleo de soja 900ml', price: 7.50, tax: 0.26, category: 'alimentação', law: 'IBPT — NCM 1507.90.11' },
+  { id: 'acucar', name: 'Açúcar 1kg', price: 5.00, tax: 0.323, category: 'alimentação', law: 'IBPT — NCM 1701.14.00' },
+  { id: 'cafe', name: 'Café 500g', price: 18.00, tax: 0.165, category: 'alimentação', law: 'IBPT — NCM 0901.21.00' },
+  { id: 'macarrao', name: 'Macarrão 500g', price: 4.50, tax: 0.175, category: 'alimentação', law: 'IBPT — NCM 1902.19.00' },
+  { id: 'cerveja', name: 'Cerveja lata 350ml', price: 4.00, tax: 0.425, category: 'bebidas', law: 'ICMS-ST 25% SC + IPI 6%' },
+  { id: 'refrigerante', name: 'Refrigerante lata', price: 3.50, tax: 0.46, category: 'bebidas', law: 'IBPT — NCM 2202.10.00' },
+  { id: 'agua', name: 'Água mineral 1,5L', price: 3.00, tax: 0.315, category: 'bebidas', law: 'IBPT — NCM 2201.10.00' },
+  { id: 'gasolina', name: 'Gasolina 1 litro', price: 6.33, tax: 0.381, category: 'transporte', law: 'LC 192/2022 — ICMS R$1,57/L' },
+  { id: 'onibus', name: 'Passagem ônibus', price: 5.50, tax: 0.227, category: 'transporte', law: 'IBPT — impostos embutidos' },
+  { id: 'luz', name: 'Conta de luz', price: 250.00, tax: 0.356, category: 'moradia', law: 'ICMS 17% SC + PIS/COFINS + encargos' },
+  { id: 'celular', name: 'Plano celular', price: 50.00, tax: 0.293, category: 'telecom', law: 'ICMS 17% SC pós-STF + FUST' },
+  { id: 'internet', name: 'Internet banda larga', price: 100.00, tax: 0.293, category: 'telecom', law: 'ICMS 17% SC + PIS/COFINS' },
+  { id: 'medicamento', name: 'Medicamento genérico', price: 30.00, tax: 0.339, category: 'saúde', law: 'Lei 10.147/2000 (monofásico)' },
+  { id: 'shampoo', name: 'Shampoo', price: 15.00, tax: 0.365, category: 'higiene', law: 'IBPT — NCM 3305.10.00' },
+  { id: 'sabonete', name: 'Sabonete', price: 4.00, tax: 0.323, category: 'higiene', law: 'IBPT — NCM 3401.20.00' },
+  { id: 'papel', name: 'Papel higiênico 12un', price: 18.00, tax: 0.263, category: 'higiene', law: 'IBPT — NCM 4818.90.00' },
+  { id: 'detergente', name: 'Detergente 500ml', price: 3.50, tax: 0.338, category: 'limpeza', law: 'IBPT — NCM 3402.20.00' },
+  { id: 'cigarro', name: 'Cigarro maço', price: 10.00, tax: 0.833, category: 'outros', law: 'IPI + ICMS 25% + PIS/COFINS' },
+  { id: 'tenis', name: 'Tênis nacional', price: 250.00, tax: 0.44, category: 'vestuário', law: 'IBPT — NCM 6404.19.00' },
+  { id: 'camiseta', name: 'Camiseta algodão', price: 60.00, tax: 0.347, category: 'vestuário', law: 'IBPT — NCM 6109.10.00' },
+] as const
+
+const PERFIS: Record<string, Record<string, number>> = {
+  minimo: {
+    arroz: 2, feijao: 2, pao: 4, leite: 8, carne: 2, frango: 2, oleo: 1, acucar: 2, cafe: 1, macarrao: 4,
+    agua: 4, gasolina: 0, onibus: 44, luz: 1, celular: 1, internet: 0, medicamento: 0,
+    shampoo: 1, sabonete: 2, papel: 1, detergente: 2, cigarro: 0, cerveja: 0, refrigerante: 0,
+    tenis: 0, camiseta: 0,
+  },
+  media: {
+    arroz: 2, feijao: 1, pao: 4, leite: 8, carne: 4, frango: 2, oleo: 1, acucar: 1, cafe: 1, macarrao: 2,
+    cerveja: 8, refrigerante: 4, agua: 8, gasolina: 40, onibus: 0, luz: 1, celular: 1, internet: 1,
+    medicamento: 1, shampoo: 1, sabonete: 2, papel: 1, detergente: 2, cigarro: 0,
+    tenis: 0, camiseta: 0,
+  },
+  alta: {
+    arroz: 1, feijao: 0, pao: 4, leite: 12, carne: 8, frango: 2, oleo: 1, acucar: 1, cafe: 2, macarrao: 1,
+    cerveja: 16, refrigerante: 8, agua: 12, gasolina: 80, onibus: 0, luz: 1, celular: 1, internet: 1,
+    medicamento: 2, shampoo: 1, sabonete: 2, papel: 1, detergente: 2, cigarro: 0,
+    tenis: 1, camiseta: 2,
+  },
 }
 
-const ICON_MAP: Record<string, LucideIcon> = {
-  Fuel,
-  Beer,
-  Smartphone,
-  WheatOff,
-  Car,
-  Zap,
-  Cigarette,
-  Pill,
-  Footprints,
-  Phone,
-  GlassWater,
-  Croissant,
-}
+const CATEGORIAS = ['alimentação', 'bebidas', 'transporte', 'moradia', 'telecom', 'saúde', 'higiene', 'limpeza', 'vestuário', 'outros'] as const
 
-const STAGE_ICON_MAP: Record<string, LucideIcon> = {
-  Factory,
-  Truck,
-  Store,
-  ShoppingCart,
-}
-
-function getProductIcon(iconName: string): LucideIcon {
-  return ICON_MAP[iconName] ?? Fuel
-}
-
-function getStageIcon(iconName: string): LucideIcon {
-  return STAGE_ICON_MAP[iconName] ?? Factory
-}
-
-function scaleChain(product: ProductChain, newPrice: number): ProductChain {
-  const ratio = newPrice / product.defaultPrice
-  return {
-    ...product,
-    defaultPrice: newPrice,
-    stages: product.stages.map((stage) => ({
-      ...stage,
-      entryPrice: stage.entryPrice * ratio,
-      valueAdded: stage.valueAdded * ratio,
-      taxes: stage.taxes.map((tax) => ({
-        ...tax,
-        amount: tax.amount * ratio,
-      })),
-      totalTaxes: stage.totalTaxes * ratio,
-      exitPrice: stage.exitPrice * ratio,
-      cumulativeTaxes: stage.cumulativeTaxes * ratio,
-    })),
-    totalTaxes: product.totalTaxes * ratio,
-    priceWithoutTax: product.priceWithoutTax * ratio,
-  }
-}
-
-function collectLaws(product: ProductChain): string[] {
-  const laws = new Set<string>()
-  for (const stage of product.stages) {
-    for (const tax of stage.taxes) {
-      if (tax.law) {
-        laws.add(tax.law)
-      }
-    }
-  }
-  return [...laws]
-}
-
-const REGIME_LABELS: Record<string, string> = {
-  monofasico: 'Monofásico',
-  st: 'Substituição Tributária',
-  normal: 'Normal',
-  desonerado: 'Desonerado',
-}
+function fmt(v: number) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v) }
 
 export default function ProductXRay() {
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [customPrice, setCustomPrice] = useState('')
-  const [tooltipTax, setTooltipTax] = useState<string | null>(null)
+  const [cart, setCart] = useState<Record<string, number>>(() => ({ ...PERFIS.media }))
+  const [expanded, setExpanded] = useState<string | null>(null)
 
-  const selectedProduct = useMemo(() => {
-    if (!selectedId) return null
-    return PRODUCTS.find((p) => p.id === selectedId) ?? null
-  }, [selectedId])
+  const setQty = (id: string, qty: number) => setCart(prev => ({ ...prev, [id]: Math.max(0, qty) }))
+  const loadProfile = (profile: string) => setCart({ ...PERFIS[profile] })
 
-  const activeChain = useMemo(() => {
-    if (!selectedProduct) return null
-    if (!customPrice) return selectedProduct
-    const parsed = parseFloat(customPrice.replace(/\./g, '').replace(',', '.'))
-    if (!parsed || parsed <= 0) return selectedProduct
-    return scaleChain(selectedProduct, parsed)
-  }, [selectedProduct, customPrice])
+  const summary = useMemo(() => {
+    let totalSpent = 0
+    let totalTax = 0
+    const byCategory: Record<string, { spent: number; tax: number }> = {}
+    for (const p of PRODUTOS) {
+      const qty = cart[p.id] || 0
+      if (qty === 0) continue
+      const spent = p.price * qty
+      const tax = spent * p.tax / (1 + p.tax)
+      totalSpent += spent
+      totalTax += tax
+      if (!byCategory[p.category]) byCategory[p.category] = { spent: 0, tax: 0 }
+      byCategory[p.category].spent += spent
+      byCategory[p.category].tax += tax
+    }
+    return { totalSpent, totalTax, rate: totalSpent > 0 ? totalTax / totalSpent : 0, byCategory }
+  }, [cart])
 
-  const laws = useMemo(() => {
-    if (!activeChain) return []
-    return collectLaws(activeChain)
-  }, [activeChain])
-
-  const handleSelectProduct = (id: string) => {
-    setSelectedId(id)
-    setCustomPrice('')
-    setTooltipTax(null)
-  }
-
-  const handlePriceInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/\D/g, '')
-    const num = parseInt(raw || '0', 10) / 100
-    setCustomPrice(num > 0 ? num.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : '')
-  }
+  const activeCount = PRODUTOS.filter(p => (cart[p.id] || 0) > 0).length
 
   return (
     <div className="space-y-6">
-      <SEO
-        title="Raio-X do Produto — Cadeia tributária completa"
-        description="Veja cada imposto que incide sobre um produto, desde a produção ou importação até o consumidor final. Cadeia tributária detalhada com leis e alíquotas."
-        path="/raio-x-produto"
-      />
+      <SEO title="Compras do Dia a Dia — Impostos escondidos" description="Monte sua lista de compras e descubra quanto de imposto está embutido no preço." path="/produtos" />
 
-      {/* Header */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-xl font-semibold text-white">Raio-X do Produto</h1>
-        <p className="text-txt-tertiary text-sm mt-0.5">
-          Veja cada imposto que incide do início ao fim da cadeia
-        </p>
+        <h1 className="text-xl font-semibold text-white">Compras do Dia a Dia</h1>
+        <p className="text-txt-secondary text-sm mt-0.5">Monte sua lista e veja quanto de imposto está escondido</p>
       </motion.div>
 
-      {/* Product selector */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-        {PRODUCTS.map((product, i) => {
-          const Icon = getProductIcon(product.icon)
-          const isSelected = selectedId === product.id
-          return (
-            <motion.button
-              key={product.id}
-              onClick={() => handleSelectProduct(product.id)}
-              className={`relative rounded-2xl p-4 text-left transition-all ${
-                isSelected
-                  ? 'bg-navy-800 border-2 border-gold-400 shadow-glow'
-                  : 'bg-gradient-card border border-navy-700 shadow-card hover:border-navy-600'
-              }`}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.04, duration: 0.3 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Icon
-                  size={20}
-                  className={isSelected ? 'text-gold-400' : 'text-txt-secondary'}
-                />
-                <span className="text-sm font-medium text-white truncate">{product.name}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-txt-tertiary">
-                  {fmt(product.defaultPrice)}
-                </span>
-                <span
-                  className={`text-xs font-mono font-medium ${isSelected ? 'text-gold-300' : 'text-gold-400'}`}
-                >
-                  {pct(product.taxPercentage)}
-                </span>
-              </div>
-            </motion.button>
-          )
-        })}
+      {/* Perfis */}
+      <div className="flex flex-wrap gap-2">
+        {[
+          { key: 'minimo', label: 'Salário Mínimo', desc: 'R$ 1.621/mês' },
+          { key: 'media', label: 'Classe Média', desc: 'R$ 5.000/mês' },
+          { key: 'alta', label: 'Classe Alta', desc: 'R$ 15.000/mês' },
+        ].map(p => (
+          <button key={p.key} onClick={() => loadProfile(p.key)}
+            className="flex flex-col px-4 py-2 rounded-xl text-left transition-all hover:scale-[1.02]"
+            style={{ backgroundColor: '#0F2440', border: '1px solid #163356' }}>
+            <span className="text-xs font-medium text-white">{p.label}</span>
+            <span className="text-[10px] text-txt-tertiary">{p.desc}</span>
+          </button>
+        ))}
       </div>
 
-      <AnimatePresence mode="wait">
-        {activeChain && (
-          <motion.div
-            key={activeChain.id}
-            className="space-y-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
-          >
-            {/* Price input */}
-            <motion.div
-              className="rounded-2xl bg-gradient-card shadow-card p-5"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <label
-                className="text-xs text-txt-tertiary uppercase tracking-wider block mb-2"
-                htmlFor="price-input"
-              >
-                Ajustar preço:
-              </label>
-              <div className="flex items-center gap-3">
-                <div className="relative flex-1 max-w-xs">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-txt-tertiary text-sm font-mono">
-                    R$
-                  </span>
-                  <input
-                    type="text"
-                    id="price-input"
-                    inputMode="numeric"
-                    autoComplete="off"
-                    value={customPrice}
-                    onChange={handlePriceInput}
-                    placeholder={activeChain.defaultPrice.toLocaleString('pt-BR', {
-                      minimumFractionDigits: 2,
-                    })}
-                    className="w-full rounded-xl pl-12 pr-4 py-3 text-lg font-mono focus:outline-none transition-all"
-                    style={{ caretColor: '#E5A216' }}
-                  />
-                </div>
-                <span className="text-xs text-txt-tertiary">/{activeChain.unit}</span>
-                <span className="text-xs text-txt-tertiary font-mono">
-                  NCM {activeChain.ncm}
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Chain visualization */}
-            <div className="space-y-0">
-              {activeChain.stages.map((stage, idx) => (
-                <div key={stage.label}>
-                  <StageCard
-                    stage={stage}
-                    index={idx}
-                    tooltipTax={tooltipTax}
-                    onToggleTooltip={setTooltipTax}
-                  />
-                  {idx < activeChain.stages.length - 1 && (
-                    <ChainArrow value={stage.exitPrice} delay={0.15 + idx * 0.12} />
-                  )}
-                </div>
-              ))}
+      {/* Hero resumo */}
+      {summary.totalSpent > 0 && (
+        <motion.div className="rounded-2xl p-6 relative overflow-hidden shadow-glow-lg"
+          style={{ background: 'linear-gradient(145deg, #080E1A 0%, #0C1525 50%, #0F2440 100%)' }}
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <p className="text-xs text-gold-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+                <ShoppingCart size={12} /> Impostos na sua compra mensal
+              </p>
+              <p className="text-3xl sm:text-4xl font-bold font-mono text-gold-300">{fmt(summary.totalTax)}</p>
+              <p className="text-txt-secondary text-sm mt-1">
+                de {fmt(summary.totalSpent)} — <span className="text-gold-400 font-semibold">{(summary.rate * 100).toFixed(1)}%</span> é imposto
+              </p>
             </div>
-
-            {/* Final summary */}
-            <motion.div
-              className="rounded-2xl bg-gradient-hero shadow-glow-lg overflow-hidden relative"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + activeChain.stages.length * 0.12 }}
-            >
-              <div className="absolute inset-0 bg-gradient-glow opacity-50" />
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-navy-800 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3" />
-              <motion.div
-                className="absolute inset-0 rounded-2xl"
-                animate={{
-                  boxShadow: [
-                    '0 0 20px rgba(229,162,22,0.1)',
-                    '0 0 40px rgba(229,162,22,0.2)',
-                    '0 0 20px rgba(229,162,22,0.1)',
-                  ],
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <div className="relative p-7 space-y-4">
-                <p className="text-xs text-gold-300/70 uppercase tracking-widest flex items-center gap-2">
-                  <ShoppingCart size={12} />
-                  Preço final ao consumidor
-                </p>
-
-                <p className="text-4xl font-bold font-mono text-gold-300 drop-shadow-[0_0_20px_rgba(229,162,22,0.3)]">
-                  {fmt(
-                    activeChain.stages[activeChain.stages.length - 1]?.exitPrice ??
-                      activeChain.defaultPrice,
-                  )}
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <SummaryItem
-                    label="Total impostos"
-                    value={`${fmt(activeChain.totalTaxes)} (${pct(activeChain.taxPercentage)})`}
-                    highlight
-                  />
-                  <SummaryItem
-                    label="Sem imposto custaria"
-                    value={fmt(activeChain.priceWithoutTax)}
-                  />
-                  <SummaryItem
-                    label="De cada R$ 10"
-                    value={`R$ ${((activeChain.taxPercentage / 100) * 10).toFixed(2).replace('.', ',')} são impostos`}
-                  />
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-txt-tertiary">Regime:</span>
-                    <span className="text-xs font-medium text-gold-400 bg-navy-800 px-2.5 py-1 rounded-full">
-                      {REGIME_LABELS[activeChain.taxRegime] ?? activeChain.taxRegime}
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-[10px] text-txt-tertiary mt-2">
-                  Fonte: {activeChain.source}
-                </p>
+            <div className="flex gap-4 text-center">
+              <div>
+                <p className="text-2xl font-bold text-white font-mono">{activeCount}</p>
+                <p className="text-[10px] text-txt-tertiary">itens</p>
               </div>
-            </motion.div>
-
-            {/* Laws footer */}
-            {laws.length > 0 && (
-              <motion.div
-                className="rounded-2xl bg-gradient-card shadow-card p-5"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + activeChain.stages.length * 0.12 }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <FileText size={14} className="text-txt-tertiary" />
-                  <h3 className="text-sm font-medium text-white">Legislação referenciada</h3>
-                </div>
-                <ul className="space-y-1">
-                  {laws.map((law) => (
-                    <li key={law} className="text-xs text-txt-tertiary">
-                      {law}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
-
-function StageCard({
-  stage,
-  index,
-  tooltipTax,
-  onToggleTooltip,
-}: {
-  stage: ChainStage
-  index: number
-  tooltipTax: string | null
-  onToggleTooltip: (id: string | null) => void
-}) {
-  const Icon = getStageIcon(stage.icon)
-  const taxTotal = stage.totalTaxes
-  const valueAdded = stage.valueAdded
-  const barTotal = taxTotal + valueAdded
-  const taxWidth = barTotal > 0 ? (taxTotal / barTotal) * 100 : 0
-
-  return (
-    <motion.div
-      className="rounded-2xl bg-gradient-card shadow-card p-5"
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1 + index * 0.12, duration: 0.4 }}
-    >
-      {/* Stage header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <span className="text-gold-400">
-            <Icon size={18} />
-          </span>
-          <span className="text-sm font-medium text-white">{stage.label}</span>
-        </div>
-        <span className="text-xs font-mono text-txt-tertiary">
-          Entrada: {fmt(stage.entryPrice)}
-        </span>
-      </div>
-
-      {/* Taxes list */}
-      <div className="space-y-1.5 mb-3">
-        {stage.taxes.map((tax) => {
-          const taxId = `${stage.label}-${tax.name}`
-          return (
-            <TaxRow
-              key={taxId}
-              tax={tax}
-              taxId={taxId}
-              isTooltipOpen={tooltipTax === taxId}
-              onToggleTooltip={onToggleTooltip}
-            />
-          )
-        })}
-      </div>
-
-      {/* Visual bar */}
-      <div className="mb-3">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-[10px] text-txt-tertiary">Imposto vs Valor agregado</span>
-        </div>
-        <div className="h-2.5 rounded-full bg-navy-900 overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)] flex">
-          <motion.div
-            className="h-full bg-gold-400 rounded-l-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${taxWidth}%` }}
-            transition={{ delay: 0.3 + index * 0.12, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          />
-          <motion.div
-            className="h-full bg-navy-600 rounded-r-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${100 - taxWidth}%` }}
-            transition={{ delay: 0.3 + index * 0.12, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </div>
-        <div className="flex justify-between mt-1">
-          <span className="text-[10px] text-gold-400 font-mono">
-            Impostos: {fmt(taxTotal)}
-          </span>
-          <span className="text-[10px] text-txt-tertiary font-mono">
-            Valor: {fmt(valueAdded)}
-          </span>
-        </div>
-      </div>
-
-      {/* Exit + cumulative */}
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-mono text-white font-medium">
-          Saída: {fmt(stage.exitPrice)}
-        </span>
-        <span className="text-[10px] font-mono text-gold-400 bg-navy-900 px-2.5 py-1 rounded-full">
-          Acumulado impostos: {fmt(stage.cumulativeTaxes)}
-        </span>
-      </div>
-
-      {/* Stage note */}
-      {stage.note && (
-        <p className="text-[10px] text-txt-tertiary mt-2 italic">{stage.note}</p>
+              <div>
+                <p className="text-2xl font-bold text-gold-400 font-mono">{(summary.rate * 10).toFixed(1)}</p>
+                <p className="text-[10px] text-txt-tertiary">de cada R$ 10</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       )}
-    </motion.div>
-  )
-}
 
-function TaxRow({
-  tax,
-  taxId,
-  isTooltipOpen,
-  onToggleTooltip,
-}: {
-  tax: StageTax
-  taxId: string
-  isTooltipOpen: boolean
-  onToggleTooltip: (id: string | null) => void
-}) {
-  return (
-    <div className="flex items-center justify-between text-xs relative">
-      <div className="flex items-center gap-1.5">
-        <span className="text-txt-tertiary">{tax.name}</span>
-        {tax.rate !== null && (
-          <span className="text-[10px] text-txt-tertiary font-mono">({pct(tax.rate)})</span>
-        )}
-        <button
-          onClick={() => onToggleTooltip(isTooltipOpen ? null : taxId)}
-          className="text-txt-tertiary hover:text-gold-400 transition-colors"
-          aria-label={`Ver lei: ${tax.law}`}
-        >
-          <Info size={12} />
-        </button>
-        <AnimatePresence>
-          {isTooltipOpen && (
-            <motion.span
-              className="absolute left-0 top-full mt-1 z-10 bg-navy-800 border border-navy-700 text-[10px] text-txt-secondary px-3 py-2 rounded-lg shadow-card max-w-xs"
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.15 }}
-            >
-              <span className="font-medium text-gold-400">{tax.law}</span>
-              {tax.note && <span className="block mt-0.5 text-txt-tertiary">{tax.note}</span>}
-              <span className="block mt-0.5 text-txt-tertiary">Tipo: {tax.type}</span>
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </div>
-      <span className="font-mono font-medium text-gold-400">{fmt(tax.amount)}</span>
-    </div>
-  )
-}
+      {/* Lista por categoria */}
+      {CATEGORIAS.map(cat => {
+        const items = PRODUTOS.filter(p => p.category === cat)
+        return (
+          <motion.div key={cat} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <h3 className="text-[10px] uppercase tracking-widest text-txt-tertiary mb-2 capitalize">{cat}</h3>
+            <div className="space-y-1">
+              {items.map(product => {
+                const qty = cart[product.id] || 0
+                const Icon = ICONS[product.id] || ShoppingCart
+                const itemTotal = product.price * qty
+                const itemTax = itemTotal * product.tax / (1 + product.tax)
+                const isExpanded = expanded === product.id
 
-function ChainArrow({ value, delay }: { value: number; delay: number }) {
-  return (
-    <motion.div
-      className="flex flex-col items-center py-2"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay }}
-    >
-      <motion.div
-        animate={{ y: [0, 4, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <ArrowDown size={18} className="text-gold-400/60" />
-      </motion.div>
-      <span className="text-[10px] font-mono text-txt-tertiary">{fmt(value)}</span>
-    </motion.div>
-  )
-}
+                return (
+                  <div key={product.id}>
+                    <div className="flex items-center gap-3 px-3 py-2 rounded-xl transition-all"
+                      style={{ backgroundColor: qty > 0 ? '#0F2440' : '#0C1525', border: qty > 0 ? '1px solid #163356' : '1px solid transparent' }}>
+                      <Icon size={15} className={qty > 0 ? 'text-gold-400' : 'text-txt-tertiary'} style={{ flexShrink: 0 }} />
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm truncate ${qty > 0 ? 'text-white' : 'text-txt-secondary'}`}>{product.name}</p>
+                        <p className="text-[10px] text-txt-tertiary">{fmt(product.price)} · {(product.tax * 100).toFixed(1)}% imp.</p>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <button onClick={() => setQty(product.id, qty - 1)}
+                          className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: '#163356' }}>
+                          <Minus size={10} className="text-white" />
+                        </button>
+                        <span className="text-xs font-mono text-white w-5 text-center">{qty}</span>
+                        <button onClick={() => setQty(product.id, qty + 1)}
+                          className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: '#163356' }}>
+                          <Plus size={10} className="text-white" />
+                        </button>
+                      </div>
+                      {qty > 0 && (
+                        <div className="text-right w-20 flex-shrink-0">
+                          <p className="text-xs font-mono text-white">{fmt(itemTotal)}</p>
+                          <p className="text-[10px] font-mono text-gold-400">{fmt(itemTax)}</p>
+                        </div>
+                      )}
+                      {qty > 0 && (
+                        <button onClick={() => setExpanded(isExpanded ? null : product.id)} className="flex-shrink-0">
+                          <ChevronDown size={12} className={`text-txt-tertiary transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                        </button>
+                      )}
+                    </div>
+                    <AnimatePresence>
+                      {isExpanded && qty > 0 && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                          <div className="px-3 py-2 ml-7 text-[11px] text-txt-tertiary space-y-1" style={{ borderLeft: '2px solid #163356' }}>
+                            <p><span className="text-txt-secondary">Base legal:</span> {product.law}</p>
+                            <p><span className="text-txt-secondary">Cálculo:</span> {fmt(product.price)} × {qty} = {fmt(itemTotal)} → {fmt(itemTax)} é imposto (por dentro)</p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )
+              })}
+            </div>
+          </motion.div>
+        )
+      })}
 
-function SummaryItem({
-  label,
-  value,
-  highlight,
-}: {
-  label: string
-  value: string
-  highlight?: boolean
-}) {
-  return (
-    <div>
-      <span className="text-xs text-txt-tertiary block">{label}</span>
-      <span
-        className={`text-sm font-mono font-medium ${highlight ? 'text-gold-300' : 'text-white'}`}
-      >
-        {value}
-      </span>
+      {/* Resumo por categoria */}
+      {summary.totalSpent > 0 && (
+        <motion.div className="rounded-2xl shadow-card p-5" style={{ background: 'linear-gradient(180deg, #0F2440 0%, #0C1525 100%)' }}
+          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+          <h3 className="text-[10px] uppercase tracking-widest text-txt-tertiary mb-4">Impostos por categoria</h3>
+          <div className="space-y-2.5">
+            {Object.entries(summary.byCategory).sort(([, a], [, b]) => b.tax - a.tax).map(([cat, data]) => {
+              const maxTax = Math.max(...Object.values(summary.byCategory).map(d => d.tax))
+              return (
+                <div key={cat} className="flex items-center gap-3">
+                  <span className="text-xs text-txt-secondary w-24 capitalize flex-shrink-0">{cat}</span>
+                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: '#080E1A' }}>
+                    <motion.div className="h-full rounded-full" style={{ backgroundColor: '#E5A216', width: `${maxTax > 0 ? (data.tax / maxTax) * 100 : 0}%` }}
+                      initial={{ width: 0 }} animate={{ width: `${maxTax > 0 ? (data.tax / maxTax) * 100 : 0}%` }} transition={{ duration: 0.5 }} />
+                  </div>
+                  <span className="text-xs font-mono text-gold-400 w-20 text-right">{fmt(data.tax)}</span>
+                </div>
+              )
+            })}
+          </div>
+          <div className="mt-4 pt-3" style={{ borderTop: '1px solid #163356' }}>
+            <p className="text-[10px] text-txt-tertiary">
+              Fonte: IBPT (De Olho no Imposto, Lei 12.741/2012). Impostos por dentro (embutidos no preço). Dados SC 2026.
+            </p>
+          </div>
+        </motion.div>
+      )}
     </div>
   )
 }
