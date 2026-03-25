@@ -35,9 +35,7 @@ function App() {
       >
         <div className="p-6 pb-8">
           <NavLink to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center shadow-glow">
-              <Eye size={20} className="text-gold-200" />
-            </div>
+            <img src="/logo-icon.svg" alt="TributôMetro" className="w-10 h-10 rounded-xl" />
             <div>
               <span className="text-lg font-semibold text-white">Tributô</span>
               <span className="text-lg font-light text-gold-400">Metro</span>
@@ -80,9 +78,7 @@ function App() {
       >
         <div className="flex items-center justify-between px-4 h-14">
           <NavLink to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center shadow-glow">
-              <Eye size={14} className="text-gold-200" />
-            </div>
+            <img src="/logo-icon.svg" alt="TributôMetro" className="w-8 h-8 rounded-lg" />
             <span className="text-sm font-semibold text-white">Tributô<span className="text-gold-400 font-light">Metro</span></span>
           </NavLink>
           <div className="flex gap-1">

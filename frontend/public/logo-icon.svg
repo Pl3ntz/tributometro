@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!--
+    TributôMetro Logo — Olho com barras de gráfico
+    Vetor puro, escala infinita, alta resolução
+    Cores: Navy #0F2440, Gold #E5A216, White #FFFFFF
+  -->
+
+  <!-- Olho externo (forma amêndoa navy) -->
+  <path d="M256 96 C150 96, 48 256, 48 256 C48 256, 150 416, 256 416 C362 416, 464 256, 464 256 C464 256, 362 96, 256 96 Z" fill="#0F2440"/>
+
+  <!-- Contorno branco interno do olho -->
+  <path d="M256 128 C162 128, 72 256, 72 256 C72 256, 162 384, 256 384 C350 384, 440 256, 440 256 C440 256, 350 128, 256 128 Z" fill="none" stroke="#FFFFFF" stroke-width="6"/>
+
+  <!-- Iris dourada (círculo grande) -->
+  <circle cx="256" cy="256" r="108" fill="#E5A216"/>
+
+  <!-- Pupila navy (círculo interno) -->
+  <circle cx="256" cy="256" r="72" fill="#0F2440"/>
+
+  <!-- Barras de gráfico (3 barras brancas crescentes) -->
+  <rect x="222" y="260" width="16" height="44" rx="4" fill="#FFFFFF"/>
+  <rect x="248" y="238" width="16" height="66" rx="4" fill="#FFFFFF"/>
+  <rect x="274" y="216" width="16" height="88" rx="4" fill="#FFFFFF"/>
+
+  <!-- Reflexo sutil -->
+  <circle cx="290" cy="210" r="10" fill="#FFFFFF" opacity="0.25"/>
+</svg>
