@@ -87,7 +87,7 @@ function App() {
                 end={end}
                 aria-label={label}
                 className={({ isActive }) =>
-                  `p-2.5 rounded-lg transition-colors ${isActive ? 'bg-navy-800 text-gold-400' : 'text-txt-tertiary'}`
+                  `p-3 rounded-lg transition-colors ${isActive ? 'bg-navy-800 text-gold-400' : 'text-txt-tertiary'}`
                 }
               >
                 <Icon size={18} aria-hidden="true" />

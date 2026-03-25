@@ -119,14 +119,10 @@ export default function ProductXRay() {
         </p>
 
         {/* Cabeçalho da tabela */}
-        <div className="flex text-[9px] font-bold border-b border-dashed border-gray-400 pb-1 mb-1">
-          <span className="w-8">CÓD</span>
+        <div className="flex text-[10px] font-bold border-b border-dashed border-gray-400 pb-1 mb-1">
           <span className="flex-1">DESCRIÇÃO</span>
-          <span className="w-8 text-center">QTD</span>
-          <span className="w-6 text-center">UN</span>
-          <span className="w-14 text-right">VL UN</span>
-          <span className="w-14 text-right">VL TOT</span>
-          <span className="w-3"></span>
+          <span className="w-14 text-center">QTD</span>
+          <span className="w-16 text-right">VALOR</span>
         </div>
 
         {/* Itens agrupados por setor */}
@@ -144,33 +140,31 @@ export default function ProductXRay() {
                 const value = product.price * qty
 
                 return (
-                  <div key={product.cod} className="flex items-center py-0.5 group">
-                    <span className="w-8 text-[9px] text-gray-400">{product.cod}</span>
-                    <span className={`flex-1 text-[10px] truncate ${qty > 0 ? 'text-gray-900 font-medium' : 'text-gray-400'}`}>
+                  <div key={product.cod} className="flex items-center py-1 group">
+                    <span className={`flex-1 text-[11px] truncate ${qty > 0 ? 'text-gray-900 font-medium' : 'text-gray-400'}`}>
                       {product.name}
+                      <span className="text-[9px] text-gray-400 ml-1">{product.un}</span>
                     </span>
 
-                    {/* Qty controls */}
-                    <div className="flex items-center gap-0.5 w-8 justify-center" onClick={e => e.stopPropagation()}>
+                    {/* Qty controls — min 24x24 touch target */}
+                    <div className="flex items-center gap-1 w-14 justify-center flex-shrink-0">
                       <button onClick={() => setQty(product.cod, qty - 1)}
-                        className="w-4 h-4 rounded flex items-center justify-center"
-                        style={{ backgroundColor: qty > 0 ? '#e0d8c8' : 'transparent' }}>
-                        {qty > 0 && <Minus size={8} className="text-gray-700" />}
+                        aria-label={`Remover ${product.name}`}
+                        className="w-6 h-6 rounded flex items-center justify-center"
+                        style={{ backgroundColor: qty > 0 ? '#d6ceb8' : '#e8e2d4' }}>
+                        <Minus size={10} className="text-gray-600" />
                       </button>
-                      <span className={`text-[10px] w-3 text-center ${qty > 0 ? 'font-bold text-gray-900' : 'text-gray-300'}`}>{qty}</span>
+                      <span className={`text-[11px] w-4 text-center ${qty > 0 ? 'font-bold text-gray-900' : 'text-gray-400'}`}>{qty}</span>
                       <button onClick={() => setQty(product.cod, qty + 1)}
-                        className="w-4 h-4 rounded flex items-center justify-center"
-                        style={{ backgroundColor: '#e0d8c8' }}>
-                        <Plus size={8} className="text-gray-700" />
+                        aria-label={`Adicionar ${product.name}`}
+                        className="w-6 h-6 rounded flex items-center justify-center"
+                        style={{ backgroundColor: '#d6ceb8' }}>
+                        <Plus size={10} className="text-gray-600" />
                       </button>
                     </div>
 
-                    <span className="w-6 text-center text-[9px] text-gray-400">{product.un}</span>
-                    <span className={`w-14 text-right text-[10px] ${qty > 0 ? 'text-gray-900' : 'text-gray-400'}`}>
-                      {fmt(product.price)}
-                    </span>
-                    <span className={`w-14 text-right text-[10px] ${qty > 0 ? 'font-bold text-gray-900' : 'text-gray-300'}`}>
-                      {qty > 0 ? fmt(value) : '-'}
+                    <span className={`w-16 text-right text-[11px] flex-shrink-0 ${qty > 0 ? 'font-bold text-gray-900' : 'text-gray-400'}`}>
+                      {qty > 0 ? fmt(value) : fmt(product.price)}
                     </span>
                   </div>
                 )

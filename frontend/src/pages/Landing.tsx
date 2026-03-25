@@ -161,7 +161,7 @@ function WaffleSquare({ index, isTax, isInView }: WaffleSquareProps) {
         <CircleDollarSign size={28} style={{ color }} strokeWidth={1.5} />
       )}
       <span className="text-[11px] font-bold font-mono" style={{ color }}>R$ 1</span>
-      <span className="text-[9px] uppercase tracking-wider" style={{ color: isTax ? '#9E6D0B' : '#2D6480' }}>
+      <span className="text-[10px] uppercase tracking-wider" style={{ color: isTax ? '#9E6D0B' : '#2D6480' }}>
         {isTax ? 'imposto' : 'seu'}
       </span>
     </motion.div>
@@ -384,7 +384,7 @@ export default function Landing() {
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             <span
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold font-mono tabular-nums"
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold font-mono tabular-nums"
               style={{ color: '#F5B731' }}
             >
               {formattedCounter}
@@ -530,7 +530,7 @@ export default function Landing() {
       <Section className="py-20 sm:py-28 px-4 sm:px-6 max-w-4xl mx-auto">
         <SectionHeading>De cada R$ 10 que você ganha...</SectionHeading>
 
-        <div ref={waffleRef} className="flex gap-2 max-w-3xl mx-auto">
+        <div ref={waffleRef} className="grid grid-cols-5 sm:flex gap-2 max-w-3xl mx-auto">
           {waffleSquares.map((sq) => (
             <WaffleSquare
               key={sq.index}

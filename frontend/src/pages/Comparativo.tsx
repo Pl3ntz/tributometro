@@ -398,7 +398,7 @@ export default function Comparativo() {
         {/* Regime toggles */}
         <div className="mt-5">
           <label className="text-xs text-txt-tertiary uppercase tracking-wider block mb-2">Regimes para comparar</label>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {(Object.keys(REGIME_META) as Regime[]).map((regime) => {
               const meta = REGIME_META[regime]
               const isSelected = selectedRegimes.includes(regime)

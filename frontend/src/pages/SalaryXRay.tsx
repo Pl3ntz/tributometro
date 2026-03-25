@@ -57,7 +57,7 @@ export default function SalaryXRay() {
         transition={{ delay: 0.1 }}
       >
         <label className="text-xs text-txt-tertiary uppercase tracking-wider block mb-3" htmlFor="salary-input">Salário bruto mensal (CLT)</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-txt-tertiary text-sm font-mono">R$</span>
             <input
@@ -261,7 +261,7 @@ export default function SalaryXRay() {
 
 function StatBadge({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="bg-navy-800 shadow-card rounded-xl px-4 py-3 text-center min-w-[100px]">
+    <div className="bg-navy-800 shadow-card rounded-xl px-4 py-3 text-center min-w-[80px] sm:min-w-[100px]">
       <div className="flex items-center justify-center gap-1.5 text-alert-400 mb-1">{icon}<span className="font-mono font-bold text-lg">{value}</span></div>
       <p className="text-[10px] text-txt-tertiary">{label}</p>
     </div>
@@ -294,8 +294,8 @@ function WaterfallLayer({ icon, color, title, value, children, highlight, delay 
 
 function WaterfallItem({ label, value, type }: { label: string; value: number; type: 'tax' | 'exempt' }) {
   return (
-    <div className="flex items-center justify-between text-xs">
-      <span className="text-txt-tertiary">{label}</span>
+    <div className="flex items-start justify-between gap-2 text-xs">
+      <span className="text-txt-tertiary min-w-0 flex-1">{label}</span>
       <span className={`font-mono font-medium ${type === 'exempt' ? 'text-success' : 'text-gold-400'}`}>
         {type === 'exempt' && value === 0 ? 'R$ 0,00 ✓' : `- ${fmt(value)}`}
       </span>
@@ -315,7 +315,7 @@ function BarRow({ label, value, total, color, highlight }: { label: string; valu
   const width = total > 0 ? (value / total) * 100 : 0
   return (
     <div className="flex items-center gap-3">
-      <span className={`text-xs w-40 flex-shrink-0 ${highlight ? 'text-white font-semibold' : 'text-txt-tertiary'}`}>{label}</span>
+      <span className={`text-xs w-24 sm:w-40 flex-shrink-0 ${highlight ? 'text-white font-semibold' : 'text-txt-tertiary'}`}>{label}</span>
       <div className="flex-1 h-3 rounded-full bg-navy-900 overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]">
         <motion.div
           className={`h-full rounded-full ${color} ${highlight ? 'shadow-[0_0_8px_rgba(34,197,94,0.3)]' : ''}`}
@@ -324,7 +324,7 @@ function BarRow({ label, value, total, color, highlight }: { label: string; valu
           transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
-      <span className={`text-xs font-mono w-20 text-right flex-shrink-0 ${highlight ? 'text-success font-bold' : 'text-txt-tertiary'}`}>
+      <span className={`text-xs font-mono w-16 sm:w-20 text-right flex-shrink-0 ${highlight ? 'text-success font-bold' : 'text-txt-tertiary'}`}>
         {fmt(value)}
       </span>
     </div>
