@@ -64,10 +64,6 @@ function App() {
           ))}
         </nav>
 
-        <div className="p-4 m-3 rounded-xl bg-navy-900 shadow-glow">
-          <p className="text-base font-bold text-gold-300 font-mono tabular-nums">40,82%</p>
-          <p className="text-[10px] text-txt-tertiary mt-1 leading-tight">da sua renda vai para impostos no Brasil</p>
-        </div>
       </motion.aside>
 
       {/* Mobile nav */}
