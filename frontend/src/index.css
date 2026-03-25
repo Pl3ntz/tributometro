@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #111113;
+    color: #EDEDF0;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  input, select, textarea {
+    background-color: #18181C;
+    color: #EDEDF0;
+    border: 1px solid #3D3D48;
+  }
+  input::placeholder { color: #6B6B7B; }
+  input:focus, select:focus, textarea:focus {
+    border-color: #E5A216;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(229, 162, 22, 0.35);
+  }
+  option { background-color: #1A1A1E; color: #EDEDF0; }
+}
+
+.font-mono, code, pre {
+  font-feature-settings: "liga" 1, "calt" 1, "zero" 1, "tnum" 1;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+::selection { background: #E5A216; color: #111113; }

@@ -1,0 +1,242 @@
+{
+  "4111": {
+    "category": "transporte",
+    "taxes": { "ICMS": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "4112": {
+    "category": "transporte_ferroviario",
+    "taxes": { "ICMS": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "4121": {
+    "category": "taxi_transporte",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "4131": {
+    "category": "onibus",
+    "taxes": { "ICMS": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "4511": {
+    "category": "companhia_aerea",
+    "taxes": { "ICMS": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "4722": {
+    "category": "agencia_viagem",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "4814": {
+    "category": "telefonia",
+    "taxes": { "ICMS": 0.25, "PIS": 0.0165, "COFINS": 0.076, "CIDE": 0.01 }
+  },
+  "4816": {
+    "category": "internet",
+    "taxes": { "ICMS": 0.18, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "4899": {
+    "category": "servicos_utilidade",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "4900": {
+    "category": "energia_eletrica",
+    "taxes": { "ICMS": 0.25, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5044": {
+    "category": "relojoaria_joias",
+    "taxes": { "ICMS": 0.17, "IPI": 0.10, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5137": {
+    "category": "vestuario",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5139": {
+    "category": "calcados",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5192": {
+    "category": "livraria",
+    "taxes": { "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "5211": {
+    "category": "materiais_construcao",
+    "taxes": { "ICMS": 0.17, "IPI": 0.08, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5311": {
+    "category": "loja_departamento",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5411": {
+    "category": "supermercado",
+    "taxes": { "ICMS": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5422": {
+    "category": "acougue",
+    "taxes": { "ICMS": 0.07, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5441": {
+    "category": "doces_confeitaria",
+    "taxes": { "ICMS": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5451": {
+    "category": "laticinios",
+    "taxes": { "ICMS": 0.07, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5462": {
+    "category": "padaria",
+    "taxes": { "ICMS": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5541": {
+    "category": "combustivel",
+    "taxes": { "ICMS": 0.25, "CIDE": 0.035, "PIS": 0.0165, "COFINS": 0.03 }
+  },
+  "5542": {
+    "category": "combustivel_conveniencia",
+    "taxes": { "ICMS": 0.25, "CIDE": 0.035, "PIS": 0.0165, "COFINS": 0.03 }
+  },
+  "5651": {
+    "category": "roupas_familia",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5691": {
+    "category": "roupas_acessorios",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5732": {
+    "category": "eletronicos",
+    "taxes": { "ICMS": 0.17, "IPI": 0.10, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5812": {
+    "category": "restaurante",
+    "taxes": { "ICMS": 0.12, "ISS": 0.02, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5813": {
+    "category": "bar_bebidas",
+    "taxes": { "ICMS": 0.18, "ISS": 0.02, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5814": {
+    "category": "fast_food",
+    "taxes": { "ICMS": 0.12, "ISS": 0.02, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5912": {
+    "category": "farmacia",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5921": {
+    "category": "bebidas_alcoolicas",
+    "taxes": { "ICMS": 0.25, "IPI": 0.20, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5941": {
+    "category": "esportes",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5945": {
+    "category": "eletronicos_brinquedos",
+    "taxes": { "ICMS": 0.17, "IPI": 0.15, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5947": {
+    "category": "presentes_artigos",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5977": {
+    "category": "cosmeticos",
+    "taxes": { "ICMS": 0.25, "IPI": 0.12, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "5999": {
+    "category": "outros_varejo",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "6011": {
+    "category": "banco_saque",
+    "taxes": { "IOF": 0.0038 }
+  },
+  "6012": {
+    "category": "servicos_financeiros",
+    "taxes": { "IOF": 0.0038, "ISS": 0.05 }
+  },
+  "6300": {
+    "category": "seguros",
+    "taxes": { "IOF": 0.0738, "ISS": 0.02 }
+  },
+  "7011": {
+    "category": "hotel",
+    "taxes": { "ISS": 0.05, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "7230": {
+    "category": "salao_beleza",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7298": {
+    "category": "saude_spa",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7311": {
+    "category": "publicidade",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7392": {
+    "category": "consultoria",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7399": {
+    "category": "servicos_gerais",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7523": {
+    "category": "estacionamento",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7832": {
+    "category": "cinema",
+    "taxes": { "ISS": 0.05, "COFINS": 0.03 }
+  },
+  "7841": {
+    "category": "streaming_video",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7922": {
+    "category": "eventos_shows",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "7941": {
+    "category": "esportes_clube",
+    "taxes": { "ISS": 0.05, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8011": {
+    "category": "medico",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8021": {
+    "category": "dentista",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8042": {
+    "category": "otica",
+    "taxes": { "ICMS": 0.17, "PIS": 0.0165, "COFINS": 0.076 }
+  },
+  "8049": {
+    "category": "saude_outros",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8050": {
+    "category": "hospital",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8062": {
+    "category": "laboratorio",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8211": {
+    "category": "educacao",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8220": {
+    "category": "faculdade",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8299": {
+    "category": "educacao_outros",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  },
+  "8351": {
+    "category": "creche",
+    "taxes": { "ISS": 0.03, "PIS": 0.0065, "COFINS": 0.03 }
+  }
+}

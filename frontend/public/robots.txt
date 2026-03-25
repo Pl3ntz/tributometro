@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tributometro.com.br/sitemap.xml
