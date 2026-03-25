@@ -74,7 +74,7 @@ export default {
         'input-focus': '0 0 0 2px rgba(229, 162, 22, 0.35)',
       },
       backgroundImage: {
-        'gradient-hero': 'linear-gradient(145deg, #1A1A1E 0%, #1C1405 40%, #2E2008 100%)',
+        'gradient-hero': 'linear-gradient(145deg, #111113 0%, #1A1A1E 50%, #232328 100%)',
         'gradient-card': 'linear-gradient(180deg, rgba(255,255,255,0.025) 0%, transparent 100%)',
       },
     },
