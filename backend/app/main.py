@@ -19,14 +19,18 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(application: FastAPI):
-    # Create tables on startup
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    # In production, skip DB init (pure calculator, no storage)
+    if settings.environment != "production":
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
 
-    # Load IBPT seed data into cache
-    from data.ibpt_seed import IBPT_SEED_DATA
-    count = await load_ibpt_to_cache(IBPT_SEED_DATA)
-    logger.info("Loaded %d IBPT rates into cache", count)
+    # Load IBPT seed data into memory cache
+    try:
+        from data.ibpt_seed import IBPT_SEED_DATA
+        count = await load_ibpt_to_cache(IBPT_SEED_DATA)
+        logger.info("Loaded %d IBPT rates into cache", count)
+    except Exception as e:
+        logger.warning("IBPT cache not loaded: %s", e)
 
     yield
 
