@@ -1,9 +1,10 @@
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
-import { Eye, Scan, GitCompare, Home as HomeIcon } from 'lucide-react'
+import { Eye, Scan, GitCompare, Home as HomeIcon, ShoppingCart } from 'lucide-react'
 import Landing from './pages/Landing'
 import SalaryXRay from './pages/SalaryXRay'
 import Comparativo from './pages/Comparativo'
+import ProductXRay from './pages/ProductXRay'
 
 function App() {
   const location = useLocation()
@@ -12,6 +13,7 @@ function App() {
   const navItems = [
     { to: '/', icon: HomeIcon, label: 'Início', end: true },
     { to: '/raio-x', icon: Scan, label: 'Raio-X' },
+    { to: '/produtos', icon: ShoppingCart, label: 'Produtos' },
     { to: '/comparativo', icon: GitCompare, label: 'CLT vs PJ' },
   ]
 
@@ -109,6 +111,7 @@ function App() {
               <Routes location={location}>
                 <Route path="/" element={<Landing />} />
                 <Route path="/raio-x" element={<SalaryXRay />} />
+                <Route path="/produtos" element={<ProductXRay />} />
                 <Route path="/comparativo" element={<Comparativo />} />
               </Routes>
             </motion.div>
